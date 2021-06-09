@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Accueil {% endblock %}
+
+{% block body %}
+<h1>Ici vous êtes sur la page d'accueil</h1>
+    <!--Affichage des articles sur le page d'accueil-->
+    <div class="row">
+    {% for document in documents %}
+        <div class="card col-md-4" style="width: 18rem;">
+
+            <img class="card-img-top" src="{{ document.picture }}" alt="{{ document.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ document.title }}</h5>
+                <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
+                <a href="#" class="btn btn-primary">En savoir plus</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
