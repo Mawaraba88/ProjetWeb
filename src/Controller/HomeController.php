@@ -10,16 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/home", name="home")
-     */
 
+    private $repoDocumentType;
+
+    public function __construct(DocumenttypeRepository $repoDocumentType){
+        $this->repoDocumentType = $repoDocumentType;
+
+    }
+
+    /**
+     * @Route("/", name="home")
+     */
 
     public function index(): Response
     {
 
-    $repo = $this->getDoctrine()->getRepository(Documenttype::class);
-    $documents = $repo->findAll();
+        $documents = $this->repoDocumentType->findAll();
 
         return $this->render('home/index.html.twig', [
             'documents' => $documents,
@@ -31,11 +37,9 @@ class HomeController extends AbstractController
      */
 
 
-    public function show($id): Response
+    public function show(Documenttype $document ): Response
     {
-
-        $repo = $this->getDoctrine()->getRepository(Documenttype::class);
-        $document = $repo->find($id);
+        //$document = $this->repoDocumentType->find($id);
 
         if(!$document){
             return $this->redirectToRoute('home');
