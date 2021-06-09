@@ -52,6 +52,7 @@ class Documenttype
     public function __construct()
     {
         $this->author = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

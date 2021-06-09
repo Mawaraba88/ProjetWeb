@@ -12,8 +12,14 @@
             <img class="card-img-top" src="{{ document.picture }}" alt="{{ document.title }}">
             <div class="card-body">
                 <h5 class="card-title">{{ document.title }}</h5>
-                <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
-                <a href="#" class="btn btn-primary">En savoir plus</a>
+                <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
+                Auteurs :
+                <p>
+                    {% for document in document %}
+                        {{ document.author }}
+                    {% endfor %}
+                </p>
+                <a href="{{ path('show', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
             </div>
         </div>
         {% endfor %}

@@ -4,6 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Documenttype;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class DocumenttypeCrudController extends AbstractCrudController
 {
@@ -12,14 +18,22 @@ class DocumenttypeCrudController extends AbstractCrudController
         return Documenttype::class;
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextEditorField::new('resume'),
+            ImageField::new('picture')
+              ->setBasePath('uploads/')
+              ->setUploadDir('public/uploads')
+              ->setUploadedFileNamePattern('[randomhash].[extension]')
+              ->setRequired(false),
+            AssociationField::new('author'),
+            AssociationField::new('category'),
+
         ];
     }
-    */
+
 }
