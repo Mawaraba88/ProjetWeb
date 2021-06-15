@@ -70,6 +70,23 @@ class User
      */
     private $password;
 
+    private $passwordConfirm;
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
+    }
+
+    /**
+     * @param mixed $passwordConfirm
+     */
+    public function setPasswordConfirm($passwordConfirm): void
+    {
+        $this->passwordConfirm = $passwordConfirm;
+    }
     /**
      * @ORM\ManyToMany(targetEntity=Documenttype::class, mappedBy="author")
      */

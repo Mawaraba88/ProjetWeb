@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Documenttype;
+use App\Repository\CategoryRepository;
 use App\Repository\DocumenttypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +14,11 @@ class HomeController extends AbstractController
 {
 
     private $repoDocumentType;
+    private $repoCategory;
 
-    public function __construct(DocumenttypeRepository $repoDocumentType){
+    public function __construct(DocumenttypeRepository $repoDocumentType, CategoryRepository $repoCategory){
         $this->repoDocumentType = $repoDocumentType;
+        $this->repoCategory = $repoCategory;
 
     }
 
@@ -25,10 +29,13 @@ class HomeController extends AbstractController
     public function index(): Response
     {
 
+        $categories =$this->repoCategory->findAll();
+
         $documents = $this->repoDocumentType->findAll();
 
         return $this->render('home/index.html.twig', [
             'documents' => $documents,
+            'categories' => $categories
         ]);
     }
 
@@ -41,11 +48,34 @@ class HomeController extends AbstractController
     {
         //$document = $this->repoDocumentType->find($id);
 
+       // dd($authors);
         if(!$document){
             return $this->redirectToRoute('home');
         }
         return $this->render('show/index.html.twig', [
             'document' => $document,
+
         ]);
     }
+
+    /**
+     * @Route("/showDocumenttypes/{id}", name="show_documenttype")
+     */
+    public function showDocumenttype(?Category $category ): Response
+    {
+    if($category){
+        $documents = $category->getDocumenttypes()->getValues();
+    }
+    else{
+       return  $this->redirectToRoute('home');
+    }
+
+        //dd($document);
+        $categories = $this->repoCategory->findAll();
+        return $this->render('home/index.html.twig', [
+            'documents' => $documents,
+            'categories' => $categories
+        ]);
+    }
+
 }

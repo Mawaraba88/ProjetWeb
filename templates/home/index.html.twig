@@ -6,22 +6,46 @@
 <h1>Ici vous êtes sur la page d'accueil</h1>
     <!--Affichage des articles sur le page d'accueil-->
     <div class="row">
-    {% for document in documents %}
-        <div class="card col-md-4" style="width: 18rem;">
+        <div class="col-md-8">
+            <div class="row">
+                {% for document in documents %}
+                    <div class="card col-md-4" style="width: 18rem;">
 
-            <img class="card-img-top" src="{{ document.picture }}" alt="{{ document.title }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ document.title }}</h5>
-                <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
-                Auteurs :
-                <p>
-                    {% for document in document %}
-                        {{ document.author }}
-                    {% endfor %}
-                </p>
-                <a href="{{ path('show', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
+                        <img class="card-img-top" src="{{ document.picture }}" alt="{{ document.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ document.title }}</h5>
+                            <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
+                            Auteurs :
+                            <p>
+                                {% for document in document %}
+                                    {{ document.author }}
+                                {% endfor %}
+                            </p>
+                            <a href="{{ path('show', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+
         </div>
-        {% endfor %}
+        <!--Affichage des catégories -->
+        <div class="col-md-4">
+            <h2>Catégories</h2>
+
+            <ul class="list-group">
+                {% for category in categories %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ path('show_documenttype', {'id':category.id}) }}">
+
+                     {{ category.name }}
+
+                    <span class="badge bg-primary rounded-pill">{{ category.documenttypes | length }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
     </div>
 {% endblock %}
