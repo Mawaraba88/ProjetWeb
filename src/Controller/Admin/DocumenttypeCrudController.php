@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Documenttype;
+use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -32,6 +34,10 @@ class DocumenttypeCrudController extends AbstractCrudController
               ->setRequired(false),
             AssociationField::new('author'),
             AssociationField::new('category'),
+            DateField:: new('created_start'),
+            DateField:: new('created_end')
+
+
 
         ];
     }

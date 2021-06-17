@@ -39,7 +39,7 @@
 
                      {{ category.name }}
 
-                    <span class="badge bg-primary rounded-pill">{{ category.documenttypes | length }}</span>
+                    <span class="badge bg-primary rounded-pill">{{ pluralize(category.documenttypes | length, 'document')}}</span>
                     </a>
                 </li>
                 {% endfor %}

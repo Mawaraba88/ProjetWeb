@@ -49,10 +49,21 @@ class Documenttype
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_start;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_end;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
         $this->createdAt = new \DateTime();
+
     }
 
     public function getId(): ?int
@@ -140,6 +151,30 @@ class Documenttype
     public function removeAuthor(User $author): self
     {
         $this->author->removeElement($author);
+
+        return $this;
+    }
+
+    public function getCreatedStart(): ?\DateTimeInterface
+    {
+        return $this->created_start;
+    }
+
+    public function setCreatedStart(\DateTimeInterface $created_start): self
+    {
+        $this->created_start = $created_start;
+
+        return $this;
+    }
+
+    public function getCreatedEnd(): ?\DateTimeInterface
+    {
+        return $this->created_end;
+    }
+
+    public function setCreatedEnd(\DateTimeInterface $created_end): self
+    {
+        $this->created_end = $created_end;
 
         return $this;
     }
