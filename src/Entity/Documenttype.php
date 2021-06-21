@@ -50,14 +50,14 @@ class Documenttype
     private $author;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $created_start;
+    private $startCreatedAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $created_end;
+    private $endCreatedAt;
 
     public function __construct()
     {
@@ -155,27 +155,28 @@ class Documenttype
         return $this;
     }
 
-    public function getCreatedStart(): ?\DateTimeInterface
+    public function getStartCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_start;
+        return $this->startCreatedAt;
     }
 
-    public function setCreatedStart(\DateTimeInterface $created_start): self
+    public function setStartCreatedAt(?\DateTimeInterface $startCreatedAt): self
     {
-        $this->created_start = $created_start;
+        $this->startCreatedAt = $startCreatedAt;
 
         return $this;
     }
 
-    public function getCreatedEnd(): ?\DateTimeInterface
+    public function getEndCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_end;
+        return $this->endCreatedAt;
     }
 
-    public function setCreatedEnd(\DateTimeInterface $created_end): self
+    public function setEndCreatedAt(?\DateTimeInterface $endCreatedAt): self
     {
-        $this->created_end = $created_end;
+        $this->endCreatedAt = $endCreatedAt;
 
         return $this;
     }
+
 }
