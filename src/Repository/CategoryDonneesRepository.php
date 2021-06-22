@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CategoryData;
+use App\Entity\CategoryDonnees;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CategoryData|null find($id, $lockMode = null, $lockVersion = null)
- * @method CategoryData|null findOneBy(array $criteria, array $orderBy = null)
- * @method CategoryData[]    findAll()
- * @method CategoryData[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CategoryDonnees|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CategoryDonnees|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CategoryDonnees[]    findAll()
+ * @method CategoryDonnees[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryDataRepository extends ServiceEntityRepository
+class CategoryDonneesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CategoryData::class);
+        parent::__construct($registry, CategoryDonnees::class);
     }
 
     // /**
-    //  * @return CategoryData[] Returns an array of CategoryData objects
+    //  * @return CategoryDonnees[] Returns an array of CategoryDonnees objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CategoryDataRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CategoryData
+    public function findOneBySomeField($value): ?CategoryDonnees
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

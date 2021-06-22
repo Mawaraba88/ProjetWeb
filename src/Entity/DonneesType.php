@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TypeDataRepository;
+use App\Repository\DonneesTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TypeDataRepository::class)
+ * @ORM\Entity(repositoryClass=DonneesTypeRepository::class)
  */
-class TypeData
+class DonneesType
 {
     /**
      * @ORM\Id
@@ -25,13 +25,13 @@ class TypeData
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CategoryData::class, inversedBy="typeData")
+     * @ORM\ManyToOne(targetEntity=CategoryDonnees::class, inversedBy="donneesTypes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $categorydata;
+    private $categorydonnees;
 
     /**
-     * @ORM\OneToMany(targetEntity=Documenttype::class, mappedBy="typeData")
+     * @ORM\OneToMany(targetEntity=Documenttype::class, mappedBy="donneesType")
      */
     private $documenttypes;
 
@@ -40,16 +40,36 @@ class TypeData
         $this->documenttypes = new ArrayCollection();
     }
 
-    public function getCategorydata(): ?CategoryData
+    public function getId(): ?int
     {
-        return $this->categorydata;
+        return $this->id;
     }
 
-    public function setCategorydata(?CategoryData $categorydata): self
+    public function getName(): ?string
     {
-        $this->categorydata = $categorydata;
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
+    }
+
+    public function getCategorydonnees(): ?CategoryDonnees
+    {
+        return $this->categorydonnees;
+    }
+
+    public function setCategorydonnees(?CategoryDonnees $categorydonnees): self
+    {
+        $this->categorydonnees = $categorydonnees;
+
+        return $this;
+    }
+    public function __toString(){
+        return $this->name;
     }
 
     /**
@@ -64,7 +84,7 @@ class TypeData
     {
         if (!$this->documenttypes->contains($documenttype)) {
             $this->documenttypes[] = $documenttype;
-            $documenttype->setTypeData($this);
+            $documenttype->setDonneesType($this);
         }
 
         return $this;
@@ -74,13 +94,11 @@ class TypeData
     {
         if ($this->documenttypes->removeElement($documenttype)) {
             // set the owning side to null (unless already changed)
-            if ($documenttype->getTypeData() === $this) {
-                $documenttype->setTypeData(null);
+            if ($documenttype->getDonneesType() === $this) {
+                $documenttype->setDonneesType(null);
             }
         }
 
         return $this;
     }
-
-
 }

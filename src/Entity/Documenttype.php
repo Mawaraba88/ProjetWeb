@@ -59,11 +59,13 @@ class Documenttype
      */
     private $endCreatedAt;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity=TypeData::class, inversedBy="documenttypes")
+     * @ORM\ManyToOne(targetEntity=DonneesType::class, inversedBy="documenttypes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $typeData;
+    private $donneesType;
 
     public function __construct()
     {
@@ -137,6 +139,8 @@ class Documenttype
         return $this;
     }
 
+
+
     /**
      * @return Collection|User[]
      */
@@ -185,14 +189,16 @@ class Documenttype
         return $this;
     }
 
-    public function getTypeData(): ?TypeData
+
+
+    public function getDonneesType(): ?DonneesType
     {
-        return $this->typeData;
+        return $this->donneesType;
     }
 
-    public function setTypeData(?TypeData $typeData): self
+    public function setDonneesType(?DonneesType $donneesType): self
     {
-        $this->typeData = $typeData;
+        $this->donneesType = $donneesType;
 
         return $this;
     }

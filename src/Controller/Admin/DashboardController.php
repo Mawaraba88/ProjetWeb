@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\CategoryData;
+use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
+use App\Entity\DonneesType;
 use App\Entity\TypeData;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -37,9 +39,9 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Categories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('CategoriesData', 'fas fa-list', CategoryData::class);
-        yield MenuItem::linkToCrud('Type de données', 'fas fa-list', TypeData::class);
-        yield MenuItem::linkToCrud('Documenttype', 'fas fa-newspaper', Documenttype::class);
+        yield MenuItem::linkToCrud('Categories de données', 'fas fa-list', CategoryDonnees::class);
+        yield MenuItem::linkToCrud('Type de données', 'fas fa-list', DonneesType::class);
+        yield MenuItem::linkToCrud('Type de document', 'fas fa-newspaper', Documenttype::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
 
 

@@ -35,7 +35,7 @@ class DocumenttypeCrudController extends AbstractCrudController
             AssociationField::new('author'),
             AssociationField::new('category'),
             //AssociationField::new(categorydata),
-            AssociationField::new('typeData'),
+            AssociationField::new('donneesType'),
             DateField:: new('startCreatedAt'),
             DateField:: new('endCreatedAt')
 
