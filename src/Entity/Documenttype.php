@@ -59,6 +59,12 @@ class Documenttype
      */
     private $endCreatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeData::class, inversedBy="documenttypes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeData;
+
     public function __construct()
     {
         $this->author = new ArrayCollection();
@@ -175,6 +181,18 @@ class Documenttype
     public function setEndCreatedAt(?\DateTimeInterface $endCreatedAt): self
     {
         $this->endCreatedAt = $endCreatedAt;
+
+        return $this;
+    }
+
+    public function getTypeData(): ?TypeData
+    {
+        return $this->typeData;
+    }
+
+    public function setTypeData(?TypeData $typeData): self
+    {
+        $this->typeData = $typeData;
 
         return $this;
     }
