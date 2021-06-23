@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
+
+use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
-use App\Repository\CategoryRepository;
+use App\Repository\CategoryDonneesRepository;
+
 use App\Repository\DocumenttypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +18,7 @@ class HomeController extends AbstractController
     private $repoDocumentType;
     private $repoCategory;
 
-    public function __construct(DocumenttypeRepository $repoDocumentType, CategoryRepository $repoCategory){
+    public function __construct(DocumenttypeRepository $repoDocumentType, CategoryDonneesRepository  $repoCategory){
         $this->repoDocumentType = $repoDocumentType;
         $this->repoCategory = $repoCategory;
 
@@ -61,7 +63,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/showDocumenttypes/{id}", name="show_documenttype")
      */
-    public function showDocumenttype(?Category $category ): Response
+    public function showDocumenttype(?CategoryDonnees $category ): Response
     {
     if($category){
         $documents = $category->getDocumenttypes()->getValues();

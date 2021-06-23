@@ -29,9 +29,15 @@ class CategoryDonnees
      */
     private $donneesTypes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Documenttype::class, mappedBy="categorydonnees")
+     */
+    private $documenttypes;
+
     public function __construct()
     {
         $this->donneesTypes = new ArrayCollection();
+        $this->documenttypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +84,36 @@ class CategoryDonnees
             // set the owning side to null (unless already changed)
             if ($donneesType->getCategorydonnees() === $this) {
                 $donneesType->setCategorydonnees(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Documenttype[]
+     */
+    public function getDocumenttypes(): Collection
+    {
+        return $this->documenttypes;
+    }
+
+    public function addDocumenttype(Documenttype $documenttype): self
+    {
+        if (!$this->documenttypes->contains($documenttype)) {
+            $this->documenttypes[] = $documenttype;
+            $documenttype->setCategorydonnees($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumenttype(Documenttype $documenttype): self
+    {
+        if ($this->documenttypes->removeElement($documenttype)) {
+            // set the owning side to null (unless already changed)
+            if ($documenttype->getCategorydonnees() === $this) {
+                $documenttype->setCategorydonnees(null);
             }
         }
 

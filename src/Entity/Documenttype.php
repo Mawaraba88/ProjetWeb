@@ -39,13 +39,9 @@ class Documenttype
      */
     private $createdAt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="documenttypes")
-     */
-    private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="documenttypes")
+     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="documenttypes")
      */
     private $author;
 
@@ -66,6 +62,11 @@ class Documenttype
      * @ORM\JoinColumn(nullable=false)
      */
     private $donneesType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CategoryDonnees::class, inversedBy="documenttypes")
+     */
+    private $categorydonnees;
 
     public function __construct()
     {
@@ -127,29 +128,17 @@ class Documenttype
         return $this;
     }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
 
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Users[]
      */
     public function getAuthor(): Collection
     {
         return $this->author;
     }
 
-    public function addAuthor(User $author): self
+    public function addAuthor(Users $author): self
     {
         if (!$this->author->contains($author)) {
             $this->author[] = $author;
@@ -158,7 +147,7 @@ class Documenttype
         return $this;
     }
 
-    public function removeAuthor(User $author): self
+    public function removeAuthor(Users $author): self
     {
         $this->author->removeElement($author);
 
@@ -199,6 +188,18 @@ class Documenttype
     public function setDonneesType(?DonneesType $donneesType): self
     {
         $this->donneesType = $donneesType;
+
+        return $this;
+    }
+
+    public function getCategorydonnees(): ?CategoryDonnees
+    {
+        return $this->categorydonnees;
+    }
+
+    public function setCategorydonnees(?CategoryDonnees $categorydonnees): self
+    {
+        $this->categorydonnees = $categorydonnees;
 
         return $this;
     }

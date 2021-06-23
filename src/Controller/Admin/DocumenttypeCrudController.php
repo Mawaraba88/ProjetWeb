@@ -33,8 +33,8 @@ class DocumenttypeCrudController extends AbstractCrudController
               ->setUploadedFileNamePattern('[randomhash].[extension]')
               ->setRequired(false),
             AssociationField::new('author'),
-            AssociationField::new('category'),
-            //AssociationField::new(categorydata),
+
+            AssociationField::new('categorydonnees'),
             AssociationField::new('donneesType'),
             DateField:: new('startCreatedAt'),
             DateField:: new('endCreatedAt')
