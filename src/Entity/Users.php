@@ -204,4 +204,34 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString(){
+        return $this->firstname. ' '.$this->lastname;
+    }
+    /**
+     * @return Collection|Documenttype[]
+     */
+    public function getDocumenttypes(): Collection
+    {
+        return $this->documenttypes;
+    }
+
+    public function addDocumenttype(Documenttype $documenttype): self
+    {
+        if (!$this->documenttypes->contains($documenttype)) {
+            $this->documenttypes[] = $documenttype;
+            $documenttype->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumenttype(Documenttype $documenttype): self
+    {
+        if ($this->documenttypes->removeElement($documenttype)) {
+            $documenttype->removeAuthor($this);
+        }
+
+        return $this;
+    }
 }
