@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DocumentsType extends AbstractType
+class DocumenttypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,17 +24,19 @@ class DocumentsType extends AbstractType
                 'mapped' => false,
                 'class' =>CategoryDonnees::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choisir une catégorie',
+                'placeholder' => 'Choisir une categorie',
                 'label' => 'Category'
-                ])
-          /*  ->add('donneesType', ChoiceType::class,[
-                'placeholder' => 'Type de document (Choisir un type de document)'
-            ])*/
-            ->add('donneesType')
+            ])
+            ->add('donneesType', EntityType::class,[
+                'class' => DonneesType::class,
+                'placeholder' => 'Choisir un type de document',
+
+            ])
+            //->add('donneesType')
             ->add('title')
             ->add('resume')
             ->add('picture')
-           // ->add('createdAt')
+            // ->add('createdAt')
             ->add('startCreatedAt')
             ->add('endCreatedAt')
             ->add('author')
@@ -47,15 +49,15 @@ class DocumentsType extends AbstractType
                 'class' => DonneesType::class,
                 'choices' =>$donneesType,
                 'choice_label' => 'name',
-                'placeholder' => 'Type de document (choisir)',
+                'placeholder' => 'Type de document (Choisir)',
                 'label' => 'Type de document'
             ]);
         };
         $builder->get('categorydonnees')->addEventListener(FormEvents::POST_SUBMIT,
-        function(FormEvent $event) use ($formModifier){
-            $category = $event->getForm()->getData();
-            $formModifier ($event->getForm()->getParent(), $category);
-        }
+            function(FormEvent $event) use ($formModifier){
+                $category = $event->getForm()->getData();
+                $formModifier ($event->getForm()->getParent(), $category);
+            }
         );
     }
 
@@ -65,4 +67,26 @@ class DocumentsType extends AbstractType
             'data_class' => Documenttype::class,
         ]);
     }
+    /*
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('title')
+            ->add('resume')
+            ->add('picture')
+            ->add('createdAt')
+            ->add('startCreatedAt')
+            ->add('endCreatedAt')
+            ->add('author')
+            ->add('donneesType')
+            ->add('categorydonnees')
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Documenttype::class,
+        ]);
+    }*/
 }

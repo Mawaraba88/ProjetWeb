@@ -8,6 +8,8 @@ use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
 use App\Entity\DonneesType;
 
+use App\Entity\Partners;
+use App\Entity\Users;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -42,6 +44,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Type de données', 'fas fa-list', DonneesType::class);
         yield MenuItem::linkToCrud('Type de document', 'fas fa-newspaper', Documenttype::class);
         yield MenuItem::linkToCrud('Users', 'fas fa-users', Users::class);
+        yield MenuItem::linkToCrud('Partenaires','fas fa-users', Partners::class );
 
 
     }

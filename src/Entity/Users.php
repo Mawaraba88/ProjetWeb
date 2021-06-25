@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Connections\MasterSlaveConnection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,6 +17,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    const STUDYLEVEL = [
+        0 => 'Master',
+        1 => 'Doctorat'
+    ];
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -82,9 +88,21 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $documenttypes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Partners::class, mappedBy="organisateurs")
+     */
+    private $partners;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $studylevel;
+
+
     public function __construct()
     {
         $this->documenttypes = new ArrayCollection();
+        $this->partners = new ArrayCollection();
     }
 
     /**
@@ -231,6 +249,45 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->documenttypes->removeElement($documenttype)) {
             $documenttype->removeAuthor($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Partners[]
+     */
+    public function getPartners(): Collection
+    {
+        return $this->partners;
+    }
+
+    public function addPartner(Partners $partner): self
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners[] = $partner;
+            $partner->addOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartner(Partners $partner): self
+    {
+        if ($this->partners->removeElement($partner)) {
+            $partner->removeOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function getStudylevel(): ?int
+    {
+        return $this->studylevel;
+    }
+
+    public function setStudylevel(?int $studylevel): self
+    {
+        $this->studylevel = $studylevel;
 
         return $this;
     }

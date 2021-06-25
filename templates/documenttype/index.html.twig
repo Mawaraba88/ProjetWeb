@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documenttype index{% endblock %}
+
+{% block body %}
+    <h1>Documenttype index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Resume</th>
+                <th>Picture</th>
+                <th>CreatedAt</th>
+                <th>StartCreatedAt</th>
+                <th>EndCreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for documenttype in documenttypes %}
+            <tr>
+                <td>{{ documenttype.id }}</td>
+                <td>{{ documenttype.title }}</td>
+                <td>{{ documenttype.resume }}</td>
+                <td>{{ documenttype.picture }}</td>
+                <td>{{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ documenttype.startCreatedAt ? documenttype.startCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ documenttype.endCreatedAt ? documenttype.endCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('documenttype_show', {'id': documenttype.id}) }}">show</a>
+                    <a href="{{ path('documenttype_edit', {'id': documenttype.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('documenttype_new') }}">Create new</a>
+{% endblock %}
