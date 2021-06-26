@@ -6,6 +6,7 @@ use App\Repository\DocumenttypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=DocumenttypeRepository::class)
@@ -33,6 +34,27 @@ class Documenttype
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture;
+
+    /**
+     * @var File
+     */
+    private $file;
+
+    /**
+     * @return File/null
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param File $file/null
+     */
+    public function setFile(File $file): void
+    {
+        $this->file = $file;
+    }
 
     /**
      * @ORM\Column(type="datetime")
@@ -67,6 +89,15 @@ class Documenttype
      * @ORM\ManyToOne(targetEntity=CategoryDonnees::class, inversedBy="documenttypes")
      */
     private $categorydonnees;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $place;
+
+
+
+  
 
     public function __construct()
     {
@@ -203,5 +234,18 @@ class Documenttype
 
         return $this;
     }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
 
 }

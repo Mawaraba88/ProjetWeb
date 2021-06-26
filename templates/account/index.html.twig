@@ -22,6 +22,12 @@
                                 <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes Documents</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes News </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="movies-tab" data-toggle="tab" href="#movies" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes Videos</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Mon Profil</a>
                             </li>
                             <li class="nav-item">
@@ -55,46 +61,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!--
-                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Orders</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>Order</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Total</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>#1234</td>
-                                                <td>March 15, 2020</td>
-                                                <td>Processing</td>
-                                                <td>$78.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>#2366</td>
-                                                <td>June 20, 2020</td>
-                                                <td>Completed</td>
-                                                <td>$81.00 for 1 item</td>
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        -->
+
+                        <!--Pour gérer les documents-->
                         <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -116,6 +84,10 @@
                                             <address> Article N°{{ index }}<br>
                                                 Title: {{ doc.title }}<br>
                                                 Resume: {{ doc.resume }}<br>
+                                                Publié le {{ doc.createdAt | date("d/m/Y")}}<br>
+
+                                                Auteur(s) :
+
                                             </address>
                                             <div class="btn-group">
                                                 <a href="{{ path('documenttype_edit', {'id':doc.id}) }}" class="btn btn-success">Edit</a>
@@ -129,6 +101,48 @@
                                 {% endfor %}
                                 {% else %}
                                 <p>Sorry you haven't added an document to your account yet !</p>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <!--Pour gérer les news -->
+                        <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <a href="{{ path('news_new') }}" class="btn btn-fill-out mb-3">Add news</a>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                {% if app.user.documenttypes %}
+                                    {% set index = 0 %}
+                                    {% for new in app.user.documenttypes %}
+                                        {% set index = index + 1 %}
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h3> Your news </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <address> News N°{{ index }}<br>
+                                                        Title: {{ new.title }}<br>
+                                                        Resume: {{ new.resume }}<br>
+                                                        Du {{ new.startCreatedAt | date("d/m/Y")}} au {{ new.endCreatedAt | date("d/m/Y")}}<br>
+                                                        Par: {{ app.user.firstname  }} {{ app.user.lastname  }}
+
+                                                    </address>
+                                                    <div class="btn-group">
+                                                        <a href="{{ path('news_edit', {'id':new.id}) }}" class="btn btn-success">Edit</a>
+                                                        <a href="{{ path('news_delete',{'id':new.id}) }}" class="btn btn-success">Delete</a>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>Sorry you haven't added an document to your account yet !</p>
                                 {% endif %}
 
                             </div>
