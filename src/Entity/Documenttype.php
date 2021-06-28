@@ -95,6 +95,16 @@ class Documenttype
      */
     private $place;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActive;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="documents")
+     */
+    private $documents;
+
 
 
   
@@ -103,6 +113,7 @@ class Documenttype
     {
         $this->author = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->documents = new ArrayCollection();
 
     }
 
@@ -243,6 +254,45 @@ class Documenttype
     public function setPlace(?string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->addDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            $document->removeDocument($this);
+        }
 
         return $this;
     }

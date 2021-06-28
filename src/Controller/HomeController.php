@@ -33,7 +33,8 @@ class HomeController extends AbstractController
 
         $categories =$this->repoCategory->findAll();
 
-        $documents = $this->repoDocumentType->findAll();
+        //$documents = $this->repoDocumentType->findAll();
+        $documents = $this->repoDocumentType->findByIsActive(1);
 
         return $this->render('home/index.html.twig', [
             'documents' => $documents,
@@ -65,7 +66,9 @@ class HomeController extends AbstractController
      */
     public function showDocumenttype(?CategoryDonnees $category ): Response
     {
+
     if($category){
+
         $documents = $category->getDocumenttypes()->getValues();
     }
     else{

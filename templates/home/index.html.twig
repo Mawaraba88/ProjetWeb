@@ -6,9 +6,15 @@
 <h1>Ici vous êtes sur la page d'accueil</h1>
     <!--Affichage des articles sur le page d'accueil-->
 
+    {% for message in app.flashes('confirm') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
+
+
     <div class="row">
         <div class="col-md-8">
             <div class="row">

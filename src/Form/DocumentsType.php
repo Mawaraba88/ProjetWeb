@@ -8,6 +8,7 @@ use App\Entity\DonneesType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -27,13 +28,14 @@ class DocumentsType extends AbstractType
                 'placeholder' => 'Choisir une catégorie',
                 'label' => 'Category'
                 ])
-          /*  ->add('donneesType', ChoiceType::class,[
+            ->add('donneesType', ChoiceType::class,[
                 'placeholder' => 'Type de document (Choisir un type de document)'
-            ])*/
+            ])
             ->add('donneesType')
             ->add('title')
             ->add('resume')
-            ->add('picture')
+            //->add('picture')
+            ->add('file', FileType::class)
            // ->add('createdAt')
             ->add('startCreatedAt')
             ->add('endCreatedAt')

@@ -5,15 +5,27 @@ namespace App\Form;
 use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
 use App\Entity\DonneesType;
+use App\Entity\Users;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Form\DocumentType;
 
 class DocumenttypeType extends AbstractType
 {
@@ -24,7 +36,7 @@ class DocumenttypeType extends AbstractType
                 'mapped' => false,
                 'class' =>CategoryDonnees::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Choisir une categorie',
+                'placeholder' => 'Choisir une catégorie',
                 'label' => 'Category'
             ])
             ->add('donneesType', EntityType::class,[
@@ -33,12 +45,18 @@ class DocumenttypeType extends AbstractType
 
             ])
             //->add('donneesType')
-            ->add('title')
-            ->add('resume')
-            ->add('picture')
+            ->add('title',TextType::class)
+            ->add('resume', TextareaType::class)
+            //->add('picture', FileType::class)
+            ->add('document', DocumentType::class, array(
+                'required' =>  false,
+                'disabled' => false,
+                'attr'     => array('class' => '' , 'disabled' => false),
+                'label_attr' => array('class' => '' )
+            ))
             // ->add('createdAt')
-            ->add('startCreatedAt')
-            ->add('endCreatedAt')
+            ->add('startCreatedAt', DateType::class)
+            ->add('endCreatedAt', DateType::class)
             ->add('author')
             ->add('Valider', SubmitType::class)
         ;
