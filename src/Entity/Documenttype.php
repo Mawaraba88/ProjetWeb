@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DocumenttypeRepository::class)
@@ -109,7 +109,8 @@ class Documenttype
     private $isActive;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @var string|null
      */
     private $brochureFilename;
 /*
@@ -358,6 +359,33 @@ class Documenttype
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    /**
+     * @Vich\UploadableField(mapping="images_directory", fileNameProperty="brochureFilename")
+     * @var File
+     */
+    private $brochureFile;
+
+    /**
+     * @return File
+     */
+    public function getBrochureFile(): ?File
+    {
+        return $this->brochureFile;
+    }
+
+    /**
+     * @param $brochureFile
+     */
+    public function setBrochureFile(?File $brochureFile): void
+    {
+        $this->brochureFile = $brochureFile;
+        if (null !== $brochureFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->setUpdateAt(new \DateTimeImmutable);
+        }
     }
 
 

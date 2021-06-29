@@ -67,16 +67,16 @@ class DocumenttypeType extends AbstractType
 
             ])
 
-           /* ->add('brochure', VichFileType::class, [
+           ->add('brochureFile', VichFileType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => '...',
                 'download_uri' => '...',
                 'download_label' => '...',
-                'asset_helper' => true,
-            ])
-           */
 
+            ])
+
+/*
             ->add('brochure', FileType::class, [
                 'label' => 'Brochure (PDF file)',
 
@@ -99,7 +99,7 @@ class DocumenttypeType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ])
+            ])*/
 
            /* ->add('documents', CollectionType::class, [
                 'entry_type' => 'App\Form\DocumentType',
