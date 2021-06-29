@@ -13,6 +13,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class DocumenttypeCrudController extends AbstractCrudController
 {
@@ -33,6 +36,15 @@ class DocumenttypeCrudController extends AbstractCrudController
               ->setUploadDir('public/uploads')
               ->setUploadedFileNamePattern('[randomhash].[extension]')
               ->setRequired(false),
+            ImageField::new('brochureFilename')
+                ->setBasePath('brochures/')
+                ->setUploadDir('public/uploads/brochures')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setRequired(false),
+
+            //TextField::new('imageFile')->setFormType(VichFileType::class)->onlyWhenCreating(),
+            //ImageField::new('picture')
+            //->setBasePath('uploads/'),
             AssociationField::new('author'),
             BooleanField::new('isActive'),
             AssociationField::new('categorydonnees'),

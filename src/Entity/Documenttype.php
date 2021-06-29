@@ -7,9 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass=DocumenttypeRepository::class)
+ * @Vich\Uploadable
  */
 class Documenttype
 {
@@ -31,35 +34,40 @@ class Documenttype
     private $resume;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @var string|null
      */
     private $picture;
 
-    /**
-     * @var File
-     */
-    private $file;
 
-    /**
-     * @return File/null
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
 
-    /**
-     * @param File $file/null
-     */
-    public function setFile(File $file): void
-    {
-        $this->file = $file;
-    }
+
+
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updateAt;
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * @param mixed $updateAt
+     */
+    public function setUpdateAt(?\DateTimeInterface $updateAt): void
+    {
+        $this->updateAt = $updateAt;
+    }
 
 
     /**
@@ -101,9 +109,16 @@ class Documenttype
     private $isActive;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $brochureFilename;
+/*
+    /**
      * @ORM\ManyToMany(targetEntity=Document::class, mappedBy="documents")
      */
-    private $documents;
+
+
+   // private $documents;
 
 
 
@@ -113,7 +128,7 @@ class Documenttype
     {
         $this->author = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->documents = new ArrayCollection();
+       // $this->documents = new ArrayCollection();
 
     }
 
@@ -127,7 +142,7 @@ class Documenttype
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -151,7 +166,7 @@ class Documenttype
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
 
@@ -163,7 +178,7 @@ class Documenttype
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -269,11 +284,11 @@ class Documenttype
 
         return $this;
     }
-
+/*
     /**
      * @return Collection|Document[]
      */
-    public function getDocuments(): Collection
+   /* public function getDocuments(): Collection
     {
         return $this->documents;
     }
@@ -295,6 +310,54 @@ class Documenttype
         }
 
         return $this;
+    }*/
+
+   public function getBrochureFilename(): ?string
+   {
+       return $this->brochureFilename;
+   }
+
+   public function setBrochureFilename(?string $brochureFilename): self
+   {
+       $this->brochureFilename = $brochureFilename;
+
+       return $this;
+   }
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="images_directory", fileNameProperty="picture")
+     *
+     * @var File|null
+     * @Assert\Image(maxSize="8M")
+     */
+    private $imageFile;
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->setUpdateAt(new \DateTimeImmutable);
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
 

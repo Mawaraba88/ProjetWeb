@@ -24,8 +24,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Validator\Constraints\File;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Form\DocumentType;
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class DocumenttypeType extends AbstractType
 {
@@ -47,13 +51,72 @@ class DocumenttypeType extends AbstractType
             //->add('donneesType')
             ->add('title',TextType::class)
             ->add('resume', TextareaType::class)
-            //->add('picture', FileType::class)
+
+            /*->add('picture', FileType::class, [
+                'label' => false,
+                'mapped' =>false,
+                'required' => false,
+
+
+            ])*/
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => false,
+
+
+            ])
+
+           /* ->add('brochure', VichFileType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => '...',
+                'download_uri' => '...',
+                'download_label' => '...',
+                'asset_helper' => true,
+            ])
+           */
+
+            ->add('brochure', FileType::class, [
+                'label' => 'Brochure (PDF file)',
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ],
+            ])
+
+           /* ->add('documents', CollectionType::class, [
+                'entry_type' => 'App\Form\DocumentType',
+                'entry_options' => [
+                    'label' => false,
+                ],
+                'allow_add' => false,
+                'allow_delete' => false,
+                'by_reference' => false,
+            ])
             ->add('document', DocumentType::class, array(
-                'required' =>  false,
-                'disabled' => false,
-                'attr'     => array('class' => '' , 'disabled' => false),
-                'label_attr' => array('class' => '' )
-            ))
+                'required' =>  $reqdocument,
+                'disabled' => $mode_lect || $archiverDocument || $supprimerDocument,
+                'attr'     => array('class' => $attrdocument.' '. $hidedocument, 'disabled' => $mode_lect),
+                'label_attr' => array('class' => $hidedocument . ' ' . $classDocument)
+            ))*/
+
             // ->add('createdAt')
             ->add('startCreatedAt', DateType::class)
             ->add('endCreatedAt', DateType::class)
@@ -67,7 +130,7 @@ class DocumenttypeType extends AbstractType
                 'class' => DonneesType::class,
                 'choices' =>$donneesType,
                 'choice_label' => 'name',
-                'placeholder' => 'Type de document (Choisir)',
+                'placeholder' => 'Type de document (Choisir...)',
                 'label' => 'Type de document'
             ]);
         };

@@ -2,9 +2,11 @@
 {% block body %}
 <div class="container">
     <h1 class="title p-1">{{ document.title }}</h1>
+
     <div class="img-fluid">
         <img width="100%" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"/>
     </div>
+
    <div class="content">
        <h2 class="title">{{ document.title }}</h2>
        <p class="content text-justify">
@@ -13,7 +15,10 @@
        <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
            Auteurs :
        <p>
+       <div class="img-fluid">
+           <a href="{{ asset('uploads/brochures/' ~ document.brochureFilename) }}">Télécharger le document (PDF)</a>
 
+       </div>
 
        </p>
 
