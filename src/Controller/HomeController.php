@@ -12,9 +12,11 @@ use App\Repository\CategoryDonneesRepository;
 use App\Repository\CategoryNewsRepository;
 use App\Repository\DocumenttypeRepository;
 use App\Repository\NewsRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class HomeController extends AbstractController
 {

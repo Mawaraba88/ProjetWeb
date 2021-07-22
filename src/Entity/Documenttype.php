@@ -71,7 +71,7 @@ class Documenttype
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="documenttypes")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="documenttypes")
      */
     private $author;
 /*

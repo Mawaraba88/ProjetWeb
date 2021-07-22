@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Partners;
-use App\Entity\Users;
+use App\Entity\User;
+
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -119,13 +120,13 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 
     private function getChoices()
     {
-        $choices = Users::STUDYLEVEL;
+        $choices = User::STUDYLEVEL;
         $outpout = [];
         foreach ($choices as $k => $v)
         {
@@ -135,7 +136,7 @@ class RegistrationFormType extends AbstractType
     }
     private function getChoice()
     {
-        $choice = Users::PARTNERS;
+        $choice = User::PARTNERS;
         $outpout = [];
         foreach ($choice as $k => $v)
         {

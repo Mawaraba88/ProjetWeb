@@ -70,7 +70,7 @@ class News
     private $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="newstypes")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="newstypes")
      */
     private $authors;
 
@@ -204,14 +204,14 @@ class News
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getAuthors(): Collection
     {
         return $this->authors;
     }
 
-    public function addAuthor(Users $author): self
+    public function addAuthor(User $author): self
     {
         if (!$this->authors->contains($author)) {
             $this->authors[] = $author;
@@ -220,7 +220,7 @@ class News
         return $this;
     }
 
-    public function removeAuthor(Users $author): self
+    public function removeAuthor(User $author): self
     {
         $this->authors->removeElement($author);
 
@@ -244,10 +244,12 @@ class News
      */
     private $updateAt;
 
+
+
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $duration_of_publication;
+    private $durationOfPublication;
 
     /**
      * @return mixed
@@ -331,17 +333,6 @@ class News
     }
 */
 
-  public function getDurationOfPublication(): ?\DateTimeInterface
-  {
-      return $this->duration_of_publication;
-  }
-
-  public function setDurationOfPublication(?\DateTimeInterface $duration_of_publication): self
-  {
-      $this->duration_of_publication = $duration_of_publication;
-
-      return $this;
-  }
 
 
 }

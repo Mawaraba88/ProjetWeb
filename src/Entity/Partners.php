@@ -25,7 +25,7 @@ class Partners
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="partners")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="partners")
      */
     private $organisateurs;
 
@@ -55,14 +55,14 @@ class Partners
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getOrganisateurs(): Collection
     {
         return $this->organisateurs;
     }
 
-    public function addOrganisateur(Users $organisateur): self
+    public function addOrganisateur(User $organisateur): self
     {
         if (!$this->organisateurs->contains($organisateur)) {
             $this->organisateurs[] = $organisateur;
@@ -71,7 +71,7 @@ class Partners
         return $this;
     }
 
-    public function removeOrganisateur(Users $organisateur): self
+    public function removeOrganisateur(User $organisateur): self
     {
         $this->organisateurs->removeElement($organisateur);
 

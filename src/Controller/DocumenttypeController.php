@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Classe\Search;
 use App\Entity\CategoryDonnees;
+use App\Entity\CategoryNews;
 use App\Entity\Documenttype;
 
 
+use App\Entity\News;
 use App\Form\DocumentsType;
 
 use App\Form\SearchType;
@@ -167,16 +169,26 @@ class DocumenttypeController extends AbstractController
      */
     public function new(Request $request /*SluggerInterface $slugger*/): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         $documenttype = new Documenttype();
         $form = $this->createForm(DocumentsType::class, $documenttype);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            if($documenttype->getCategorydonnees()->getName() == 'Articles') {
+                $new = new News();
+                $new->setTitle($documenttype->getTitle());
+                $new->setResume($documenttype->getResume());
+                $new->setCreatedAt($documenttype->getCreatedAt());
+                $categorynews = $entityManager->getRepository(CategoryNews::class)->findOneByName('Nouvelles');
+                $new-> setCategorynews($categorynews);
+                $entityManager->persist($new);
+            }
             $user =$this->getUser();
 
-            $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($documenttype);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('account');

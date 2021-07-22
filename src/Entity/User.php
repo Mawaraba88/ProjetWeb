@@ -2,31 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Connections\MasterSlaveConnection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UsersRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class Users implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     const STUDYLEVEL = [
         0 => 'Master',
         1 => 'Doctorat'
     ];
-/*
-    const PARTNERS = [
-        0 => 'Laboratoire',
-        1 => 'Universite de Tours',
-        3 => 'Partenaire 3'
-    ];*/
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -51,16 +43,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $isVerified = false;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $username;
-
-
+    private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -68,26 +58,24 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $firstname;
+    private $isValide;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fieldOfResearch;
 
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $place;
 
     /**
      * @ORM\ManyToMany(targetEntity=Documenttype::class, mappedBy="author")
@@ -109,12 +97,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $newstypes;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isvalide;
-
-
 
 
     public function __construct()
@@ -125,14 +107,21 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getId(): ?int
     {
-        return (string) $this->email;
+        return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -199,38 +188,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function isVerified(): bool
+    public function getUsername()
     {
-        return $this->isVerified;
+        // TODO: Implement getUsername() method.
     }
 
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
-
-        return $this;
-    }
-
-    public function getFullname(): ?string
-    {
-        return $this->lastname . ' ' . $this->firstname;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
 
         return $this;
     }
@@ -246,6 +211,67 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getIsValide(): ?bool
+    {
+        return $this->isValide;
+    }
+
+    public function setIsValide(?bool $isValide): self
+    {
+        $this->isValide = $isValide;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getFieldOfResearch(): ?string
+    {
+        return $this->fieldOfResearch;
+    }
+
+    public function setFieldOfResearch(?string $fieldOfResearch): self
+    {
+        $this->fieldOfResearch = $fieldOfResearch;
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): self
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
 
     public function __toString(){
         return $this->firstname. ' '.$this->lastname;
@@ -342,18 +368,4 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    public function getIsvalide(): ?bool
-    {
-        return $this->isvalide;
-    }
-
-    public function setIsvalide(?bool $isvalide): self
-    {
-        $this->isvalide = $isvalide;
-
-        return $this;
-    }
-
-
 }

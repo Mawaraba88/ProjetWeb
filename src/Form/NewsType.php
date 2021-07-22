@@ -72,6 +72,7 @@ class NewsType extends AbstractType
             ])
 */
             ->add('authors')
+            ->add('durationOfPublication')
             ->add('Valider', SubmitType::class)
         ;
 
