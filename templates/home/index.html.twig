@@ -13,6 +13,30 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
+{#
+    <div class="container">
+
+        <div class="row">
+            <div>
+                <h2>Description</h2>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Articles</h2>
+        </div>
+        <div class="row">
+            <h2>Nouvelles</h2>
+        </div>
+        <div class="row">
+            <h2>Evènements</h2>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+#}
+
 
 
     <div class="row">
@@ -25,13 +49,36 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ document.title }}</h5>
                             <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
+
                             Auteurs :
-                            <p>
-                                {% for document in document %}
-                                    {{ document.author }}
-                                {% endfor %}
-                            </p>
-                            <a href="{{ path('show', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
+
+{#
+                            {% if document.startCreatedAt and document.endCreatedAt %}
+                              <p class="date"> Du {{ document.startCreatedAt | date("d/m/Y") }}
+                                  Au {{ document.endCreatedAt | date("d/m/Y") }} </p>
+                            {% endif %}
+#}
+                            <a href="{{ path('showDocument', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for new in news %}
+                    <div class="card col-md-4" style="width: 18rem;">
+
+                       {#  <img class="card-img-top" src="/uploads/{{ new.picture }}" alt="{{ new.title }}">#}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ new.title }}</h5>
+                            <p class="date">Publié le {{ new.createdAt | date("d/m/Y")}}</p>
+
+                            Auteurs :
+
+                            {% if new.startCreatedAt and new.endCreatedAt %}
+                              <p class="date"> Du {{ new.startCreatedAt | date("d/m/Y") }}
+                                  Au {{ new.endCreatedAt | date("d/m/Y") }} </p>
+                            {% endif %}
+
+                            <a href="{{ path('showNews', {'id':new.id}) }}" class="btn btn-primary">En savoir plus</a>
                         </div>
                     </div>
                 {% endfor %}
@@ -40,7 +87,7 @@
         </div>
         <!--Affichage des catégories -->
         <div class="col-md-4">
-            <h2>Catégories</h2>
+            <h2>Documents</h2>
 
             <ul class="list-group">
                 {% for category in categories %}
@@ -55,7 +102,24 @@
                 {% endfor %}
 
             </ul>
+
+            <h2>News</h2>
+
+            <ul class="list-group">
+                {% for cat in categoryNews %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ path('show_newstype', {'id':cat.id}) }}">
+
+                            {{ cat.name }}
+
+                            <span class="badge bg-primary rounded-pill">{{ pluralize(cat.newstypes | length, 'news')}}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
         </div>
 
     </div>
+
 {% endblock %}

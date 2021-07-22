@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+{% block body %}
+    <h1>Les Compte-rendus</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% include 'documenttype/_filter.html.twig' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="grid">
+                    {% for documenttype in documents  %}
+                        {% include 'documenttype/_document.html.twig' %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- START THE FEATURETTES -->
+
+    <!--  <hr class="featurette-divider">-->
+
+{%  endblock%}

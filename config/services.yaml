@@ -6,7 +6,10 @@
 parameters:
     images_directory: '%kernel.project_dir%/public/uploads'
     brochures_directory: '%kernel.project_dir%/public/uploads/brochures'
-    #doc_images: '%kernel.project_dir%/public/uploads'
+
+    #new_directory: '%kernel.project_dir%/public/uploads'
+    #newBrochures_directory: '%kernel.project_dir%/public/uploads/brochures'
+
 
 
 services:

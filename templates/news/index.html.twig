@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Documenttype index{% endblock %}
+{% block title %}News index{% endblock %}
 
 {% block body %}
-    <h1>Documenttype index</h1>
+    <h1>News index</h1>
 
     <table class="table">
         <thead>
@@ -15,27 +15,33 @@
                 <th>CreatedAt</th>
                 <th>StartCreatedAt</th>
                 <th>EndCreatedAt</th>
+                <th>Place</th>
+                <th>BrochureFileName</th>
+                <th>IsActive</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for documenttype in documenttypes %}
+        {% for news in news %}
             <tr>
-                <td>{{ documenttype.id }}</td>
-                <td>{{ documenttype.title }}</td>
-                <td>{{ documenttype.resume }}</td>
-                <td>{{ documenttype.picture }}</td>
-                <td>{{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ documenttype.startCreatedAt ? documenttype.startCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ documenttype.endCreatedAt ? documenttype.endCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.id }}</td>
+                <td>{{ news.title }}</td>
+                <td>{{ news.resume }}</td>
+                {# <td>{{ news.picture }}</td>#}
+                <td>{{ news.createdAt ? news.createdAt|date('Y-m-d') : '' }}</td>
+                <td>{{ news.startCreatedAt ? news.startCreatedAt|date('Y-m-d') : '' }}</td>
+                <td>{{ news.endCreatedAt ? news.endCreatedAt|date('Y-m-d') : '' }}</td>
+                <td>{{ news.place }}</td>
+                {#  <td>{{ news.brochureFileName }}</td>#}
+                <td>{{ news.isActive ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('news_show', {'id': documenttype.id}) }}">show</a>
-                    <a href="{{ path('news_edit', {'id': documenttype.id}) }}">edit</a>
+                    <a href="{{ path('news_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('news_edit', {'id': news.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="11">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

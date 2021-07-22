@@ -12,23 +12,23 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
                             </li>
-                            <!--
+                            {#
                             <li class="nav-item">
                                 <a class="nav-link" id="orders-tab" data-toggle="tab" href="{{ path('app_forgot_password_request') }}" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Modifier mon mot de passe</a>
                             </li>
-                            -->
+                            #}
 
                             <li class="nav-item">
-                                <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes Documents</a>
+                                <a class="nav-link" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document" aria-selected="true"><i class="ti-location-pin"></i>Mes Documents</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes News </a>
+                                <a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="true"><i class="ti-location-pin"></i>Mes News </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="movies-tab" data-toggle="tab" href="#movies" role="tab" aria-controls="address" aria-selected="true"><i class="ti-location-pin"></i>Mes Videos</a>
+                                <a class="nav-link" id="movies-tab" data-toggle="tab" href="#movies" role="tab" aria-controls="movies" aria-selected="true"><i class="ti-location-pin"></i>Mes Videos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Mon Profil</a>
+                                <a class="nav-link" id="account-detail-tab" data-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Modifier mon mot de passe</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_logout')}}"><i class="ti-lock"></i>Déconnexion</a>
@@ -63,7 +63,7 @@
                         </div>
 
                         <!--Pour gérer les documents-->
-                        <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                        <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <a href="{{ path('documenttype_new') }}" class="btn btn-fill-out mb-3">Add document</a>
@@ -81,14 +81,14 @@
                                             <h3> Your document </h3>
                                         </div>
                                         <div class="card-body">
-                                            <address> Article N°{{ index }}<br>
+                                            <document> Article N°{{ index }}<br>
                                                 Title: {{ doc.title }}<br>
                                                 Resume: {{ doc.resume }}<br>
                                                 Publié le {{ doc.createdAt | date("d/m/Y")}}<br>
 
                                                 Auteur(s) :
 
-                                            </address>
+                                            </document>
                                             <div class="btn-group">
                                                 <a href="{{ path('documenttype_edit', {'id':doc.id}) }}" class="btn btn-success">Edit</a>
                                                 <a href="{{ path('documenttype_delete',{'id':doc.id}) }}" class="btn btn-success">Delete</a>
@@ -114,9 +114,9 @@
                             </div>
                             <div class="row">
 
-                                {% if app.user.documenttypes %}
+                                {% if app.user.newstypes %}
                                     {% set index = 0 %}
-                                    {% for new in app.user.documenttypes %}
+                                    {% for new in app.user.newstypes %}
                                         {% set index = index + 1 %}
                                         <div class="col-lg-6">
                                             <div class="card mb-3 mb-lg-0">
@@ -124,13 +124,13 @@
                                                     <h3> Your news </h3>
                                                 </div>
                                                 <div class="card-body">
-                                                    <address> News N°{{ index }}<br>
+                                                    <news> News N°{{ index }}<br>
                                                         Title: {{ new.title }}<br>
                                                         Resume: {{ new.resume }}<br>
-                                                        Du {{ new.startCreatedAt | date("d/m/Y")}} au {{ new.endCreatedAt | date("d/m/Y")}}<br>
+                                                          Du {{ new.startCreatedAt | date("d/m/Y")}} au {{ new.endCreatedAt | date("d/m/Y")}}<br>
                                                         Par: {{ app.user.firstname  }} {{ app.user.lastname  }}
 
-                                                    </address>
+                                                    </news>
                                                     <div class="btn-group">
                                                         <a href="{{ path('news_edit', {'id':new.id}) }}" class="btn btn-success">Edit</a>
                                                         <a href="{{ path('news_delete',{'id':new.id}) }}" class="btn btn-success">Delete</a>
@@ -153,7 +153,7 @@
                                     <h3>Vos informations</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Êtes-vos membre ? <a href="#">Connectez-vous!</a></p>
+
                                     <form method="post" name="enq">
                                         <div class="row">
                                             <div class="form-group col-md-6">
@@ -164,10 +164,7 @@
                                                 <label>Nom <span class="required">*</span></label>
                                                 <input required="" value="{{ app.user.lastname }}" class="form-control" name="phone">
                                             </div>
-                                            <div class="form-group col-md-12">
-                                                <label>Display Name <span class="required">*</span></label>
-                                                <input required="" class="form-control" name="dname" type="text">
-                                            </div>
+
                                             <div class="form-group col-md-12">
                                                 <label>Email <span class="required">*</span></label>
                                                 <input required="" value="{{ app.user.email }}" class="form-control" name="email" type="email">

@@ -1,5 +1,76 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Accueil {% endblock %}
+
+{% block body %}
+    <h1>Ici vous êtes sur la page d'accueil</h1>
+    <!--Affichage des articles sur le page d'accueil-->
+
+    {% for message in app.flashes('confirm') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                {% for document in documents %}
+                    <div class="card col-md-4" style="width: 18rem;">
+
+                        <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ document.title }}</h5>
+                            <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
+
+                            Auteurs :
+                            <p>
+                                {% for document in document %}
+                                    {{ document.author }}
+                                {% endfor %}
+                            </p>
+                            {#
+                            {% if document.startCreatedAt and document.endCreatedAt %}
+                              <p class="date"> Du {{ document.startCreatedAt | date("d/m/Y") }}
+                                  Au {{ document.endCreatedAt | date("d/m/Y") }} </p>
+                            {% endif %}
+                            #}
+                            <a href="{{ path('show', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <!--Affichage des catégories -->
+        <div class="col-md-4">
+            <h2>Catégories</h2>
+
+            <ul class="list-group">
+                {% for category in categories %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{{ path('show_documenttype', {'id':category.id}) }}">
+
+                            {{ category.name }}
+
+                            <span class="badge bg-primary rounded-pill">{{ pluralize(category.documenttypes | length, 'document')}}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{#
+{% extends 'base.html.twig' %}
+
 {% block title %}Documenttype index{% endblock %}
 
 {% block body %}
@@ -13,8 +84,7 @@
                 <th>Resume</th>
                 <th>Picture</th>
                 <th>CreatedAt</th>
-                <th>StartCreatedAt</th>
-                <th>EndCreatedAt</th>
+
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,8 +96,7 @@
                 <td>{{ documenttype.resume }}</td>
                 <td>{{ documenttype.picture }}</td>
                 <td>{{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ documenttype.startCreatedAt ? documenttype.startCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ documenttype.endCreatedAt ? documenttype.endCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
                 <td>
                     <a href="{{ path('documenttype_show', {'id': documenttype.id}) }}">show</a>
                     <a href="{{ path('documenttype_edit', {'id': documenttype.id}) }}">edit</a>
@@ -43,3 +112,4 @@
 
     <a href="{{ path('documenttype_new') }}">Create new</a>
 {% endblock %}
+ #}

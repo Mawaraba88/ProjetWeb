@@ -23,11 +23,11 @@ class CategoryDonnees
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
+/*
     /**
      * @ORM\OneToMany(targetEntity=DonneesType::class, mappedBy="categorydonnees")
      */
-    private $donneesTypes;
+    //private $donneesTypes;
 
     /**
      * @ORM\OneToMany(targetEntity=Documenttype::class, mappedBy="categorydonnees")
@@ -36,7 +36,7 @@ class CategoryDonnees
 
     public function __construct()
     {
-        $this->donneesTypes = new ArrayCollection();
+       // $this->donneesTypes = new ArrayCollection();
         $this->documenttypes = new ArrayCollection();
     }
 
@@ -59,10 +59,11 @@ class CategoryDonnees
     public function __toString(){
         return $this->name;
     }
-
+/*
     /**
      * @return Collection|DonneesType[]
      */
+    /*
     public function getDonneesTypes(): Collection
     {
         return $this->donneesTypes;
@@ -89,6 +90,7 @@ class CategoryDonnees
 
         return $this;
     }
+    */
 
     /**
      * @return Collection|Documenttype[]

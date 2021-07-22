@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Nouvelles {% endblock %}
+{% block body %}
+    <h1>Les Nouvelles</h1>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {% include 'news/_filtre.html.twig' %}
+            </div>
+        </div>
+
+
+    <div class="container mt-4">
+<div class="row">
+    {% for new in news %}
+    <div class="col-md-4">
+        <h5 class="mt-0">Titre: {{ new.title }}</h5>
+        <p >Résumé : {{ new.resume }}</p>
+
+        <p>{{ new.startCreatedAt ? new.startCreatedAt|date('Y-m-d') : '' }} - {{ new.endCreatedAt ? new.endCreatedAt|date('Y-m-d') : '' }} </p>
+
+
+        </div >
+
+    {% endfor %}
+</div>
+    </div>
+    </div>
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+{%  endblock%}

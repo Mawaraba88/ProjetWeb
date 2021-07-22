@@ -2,38 +2,36 @@
 
 namespace App\Entity;
 
-use App\Repository\DonneesTypeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
+/*
 /**
  * @ORM\Entity(repositoryClass=DonneesTypeRepository::class)
  */
 class DonneesType
 {
+    /*
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
-
+    //private $id;
+/*
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
-
+   // private $name;
+/*
     /**
      * @ORM\ManyToOne(targetEntity=CategoryDonnees::class, inversedBy="donneesTypes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $categorydonnees;
-
+   // private $categorydonnees;
+/*
     /**
      * @ORM\OneToMany(targetEntity=Documenttype::class, mappedBy="donneesType")
      */
-    private $documenttypes;
+  /*  private $documenttypes;
 
     public function __construct()
     {
@@ -75,7 +73,7 @@ class DonneesType
     /**
      * @return Collection|Documenttype[]
      */
-    public function getDocumenttypes(): Collection
+    /*public function getDocumenttypes(): Collection
     {
         return $this->documenttypes;
     }
@@ -100,5 +98,5 @@ class DonneesType
         }
 
         return $this;
-    }
+    }*/
 }

@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -36,14 +37,16 @@ class DocumenttypeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('categorydonnees', EntityType::class,[
-                'mapped' => false,
+           /* ->add('categorydonnees', EntityType::class,[
+               // 'mapped' => false,
                 'class' =>CategoryDonnees::class,
-                'choice_label' => 'name',
+                //'choice_label' => 'name',
                 'placeholder' => 'Choisir une catégorie',
                 'label' => 'Category'
             ])
-            ->add('donneesType', EntityType::class,[
+           */
+               ->add('categorydonnees')
+           /* ->add('donneesType', EntityType::class,[
                 'class' => DonneesType::class,
                 'placeholder' => 'Choisir un type de document',
 
@@ -70,9 +73,9 @@ class DocumenttypeType extends AbstractType
            ->add('brochureFile', VichFileType::class, [
                 'required' => false,
                 'allow_delete' => true,
-                'delete_label' => '...',
-                'download_uri' => '...',
-                'download_label' => '...',
+                //'delete_label' => '...',
+                'download_uri' => false,
+               // 'download_label' => '...',
 
             ])
 
@@ -118,12 +121,11 @@ class DocumenttypeType extends AbstractType
             ))*/
 
             // ->add('createdAt')
-            ->add('startCreatedAt', DateType::class)
-            ->add('endCreatedAt', DateType::class)
-            ->add('author')
-            ->add('Valider', SubmitType::class)
-        ;
 
+            ->add('author')
+            //->add('Valider', SubmitType::class)
+        ;
+/*
         $formModifier = function(FormInterface $form, CategoryDonnees $category =null){
             $donneesType = null === $category ? [] : $category->getDonneesTypes();
             $form ->add('donneesType', EntityType::class, [
@@ -140,6 +142,7 @@ class DocumenttypeType extends AbstractType
                 $formModifier ($event->getForm()->getParent(), $category);
             }
         );
+*/
     }
 
     public function configureOptions(OptionsResolver $resolver)

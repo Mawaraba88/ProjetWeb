@@ -21,6 +21,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         0 => 'Master',
         1 => 'Doctorat'
     ];
+/*
+    const PARTNERS = [
+        0 => 'Laboratoire',
+        1 => 'Universite de Tours',
+        3 => 'Partenaire 3'
+    ];*/
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -94,15 +100,24 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private $partners;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $studylevel;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=News::class, mappedBy="authors")
+     */
+    private $newstypes;
+
+
 
 
     public function __construct()
     {
         $this->documenttypes = new ArrayCollection();
         $this->partners = new ArrayCollection();
+        $this->newstypes = new ArrayCollection();
+
     }
 
     /**
@@ -198,6 +213,10 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getFullname(): ?string
+    {
+        return $this->lastname . ' ' . $this->firstname;
+    }
 
     public function getLastname(): ?string
     {
@@ -280,15 +299,44 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getStudylevel(): ?int
+    public function getStudylevel(): ?string
     {
         return $this->studylevel;
     }
 
-    public function setStudylevel(?int $studylevel): self
+    public function setStudylevel(?string $studylevel): self
     {
         $this->studylevel = $studylevel;
 
         return $this;
     }
+
+    /**
+     * @return Collection|News[]
+     */
+    public function getNewstypes(): Collection
+    {
+        return $this->newstypes;
+    }
+
+    public function addNewstype(News $newstype): self
+    {
+        if (!$this->newstypes->contains($newstype)) {
+            $this->newstypes[] = $newstype;
+            $newstype->addAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNewstype(News $newstype): self
+    {
+        if ($this->newstypes->removeElement($newstype)) {
+            $newstype->removeAuthor($this);
+        }
+
+        return $this;
+    }
+
+
 }

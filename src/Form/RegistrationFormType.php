@@ -2,11 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Partners;
 use App\Entity\Users;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -52,14 +55,14 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
 
-            ->add('agreeTerms', CheckboxType::class, [
+           /* ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
-            ])
+            ])*/
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -90,11 +93,25 @@ class RegistrationFormType extends AbstractType
                     ]
                     ]
             ])
-            ->add('partners')
-            /*
-            ->add('studylevel', ChoiceType::class, [
-                'choices' =>$this->getChoices()
+           /* ->add('partners', ChoiceType::class, [
+                'choices' =>$this->getChoice(),
+                'required' =>false
             ])*/
+           ->add('partners',EntityType::class, [
+               'class'=>Partners::class,
+               'multiple' =>true,
+               'attr' =>[
+                   'class'=>'js-partners-multiple'
+               ],
+               'choice_label' => 'name',
+               'placeholder' => 'Sélectionner les partenaires',
+               'label' => 'Partners'
+           ])
+
+            ->add('studylevel', ChoiceType::class, [
+                'choices' =>$this->getChoices(),
+                'required' =>false
+            ])
 
         ;
     }
@@ -111,6 +128,16 @@ class RegistrationFormType extends AbstractType
         $choices = Users::STUDYLEVEL;
         $outpout = [];
         foreach ($choices as $k => $v)
+        {
+            $outpout[$v] = $k;
+        }
+        return $outpout;
+    }
+    private function getChoice()
+    {
+        $choice = Users::PARTNERS;
+        $outpout = [];
+        foreach ($choice as $k => $v)
         {
             $outpout[$v] = $k;
         }

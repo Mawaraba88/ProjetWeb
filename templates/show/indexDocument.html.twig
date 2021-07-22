@@ -15,11 +15,12 @@
        <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
            Auteurs :
        <p>
+       {% if document.brochureFilename %}
        <div class="img-fluid">
            <a href="{{ asset('uploads/' ~ document.brochureFilename) }}">Télécharger le document (PDF)</a>
 
        </div>
-
+        {% endif %}
        </p>
 
    </div>

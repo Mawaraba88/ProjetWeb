@@ -74,34 +74,34 @@ class Documenttype
      * @ORM\ManyToMany(targetEntity=Users::class, inversedBy="documenttypes")
      */
     private $author;
-
+/*
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $startCreatedAt;
-
+  //  private $startCreatedAt;
+/*
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endCreatedAt;
+  //  private $endCreatedAt;
 
-
+/*
 
     /**
      * @ORM\ManyToOne(targetEntity=DonneesType::class, inversedBy="documenttypes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $donneesType;
+  //  private $donneesType;
 
     /**
      * @ORM\ManyToOne(targetEntity=CategoryDonnees::class, inversedBy="documenttypes")
      */
     private $categorydonnees;
-
+/*
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $place;
+   // private $place;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -129,6 +129,7 @@ class Documenttype
     {
         $this->author = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->updateAt = new \DateTime();
        // $this->documents = new ArrayCollection();
 
     }
@@ -211,7 +212,7 @@ class Documenttype
 
         return $this;
     }
-
+/*
     public function getStartCreatedAt(): ?\DateTimeInterface
     {
         return $this->startCreatedAt;
@@ -237,7 +238,7 @@ class Documenttype
     }
 
 
-
+/*
     public function getDonneesType(): ?DonneesType
     {
         return $this->donneesType;
@@ -249,7 +250,7 @@ class Documenttype
 
         return $this;
     }
-
+*/
     public function getCategorydonnees(): ?CategoryDonnees
     {
         return $this->categorydonnees;
@@ -262,17 +263,6 @@ class Documenttype
         return $this;
     }
 
-    public function getPlace(): ?string
-    {
-        return $this->place;
-    }
-
-    public function setPlace(?string $place): self
-    {
-        $this->place = $place;
-
-        return $this;
-    }
 
     public function getIsActive(): ?bool
     {
@@ -285,33 +275,7 @@ class Documenttype
 
         return $this;
     }
-/*
-    /**
-     * @return Collection|Document[]
-     */
-   /* public function getDocuments(): Collection
-    {
-        return $this->documents;
-    }
 
-    public function addDocument(Document $document): self
-    {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->addDocument($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->removeElement($document)) {
-            $document->removeDocument($this);
-        }
-
-        return $this;
-    }*/
 
    public function getBrochureFilename(): ?string
    {

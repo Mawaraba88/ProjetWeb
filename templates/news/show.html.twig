@@ -1,46 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Documenttype{% endblock %}
+{% block title %}News{% endblock %}
 
 {% block body %}
-    <h1>Documenttype</h1>
+    <h1>News</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ documenttype.id }}</td>
+                <td>{{ news.id }}</td>
             </tr>
             <tr>
                 <th>Title</th>
-                <td>{{ documenttype.title }}</td>
+                <td>{{ news.title }}</td>
             </tr>
             <tr>
                 <th>Resume</th>
-                <td>{{ documenttype.resume }}</td>
+                <td>{{ news.resume }}</td>
             </tr>
-            <tr>
+{#          <tr>
                 <th>Picture</th>
-                <td>{{ documenttype.picture }}</td>
+                <td>{{ news.picture }}</td>
             </tr>
+            #}
             <tr>
                 <th>CreatedAt</th>
-                <td>{{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>StartCreatedAt</th>
-                <td>{{ documenttype.startCreatedAt ? documenttype.startCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.startCreatedAt ? news.startCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>EndCreatedAt</th>
-                <td>{{ documenttype.endCreatedAt ? documenttype.endCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.endCreatedAt ? news.endCreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>{{ news.place }}</td>
+            </tr>
+{# <tr>
+                <th>BrochureFileName</th>
+                <td>{{ news.brochureFileName }}</td>
+            </tr>
+#}
+            <tr>
+                <th>IsActive</th>
+                <td>{{ news.isActive ? 'Yes' : 'No' }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('news_index') }}">back to list</a>
 
-    <a href="{{ path('news_edit', {'id': documenttype.id}) }}">edit</a>
+    <a href="{{ path('news_edit', {'id': news.id}) }}">edit</a>
 
     {{ include('news/_delete_form.html.twig') }}
 {% endblock %}

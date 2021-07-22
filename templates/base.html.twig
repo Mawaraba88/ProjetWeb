@@ -2,16 +2,32 @@
 <html>
     <head>
         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device.width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-
+       {#  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">#}
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app') }}}
         {% endblock %}
-        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
+      {#  <style>
+           /*.grid
+           {
+               display: grid;
+               grid-template-columns: repeat(4, 1fr);
+               grid-auto-rows: ;
+               grid-gap: 20px;
+           }*/
+           .filter
+           {
+               display: block;
+               position: sticky;
+               top: 20px;
+               margin-bottom: 30px;
+           }
+       </style>
+      #}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -31,29 +47,34 @@
                             </a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Documents</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Articles</a>
+                        <li class="nav-item dropdown" >
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >Documents</a>
+
+                             <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ path('show_article') }}">Articles</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Rapports</a>
+                                <a class="dropdown-item" href="{{ path('show_rapport') }}">Rapports</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Prototypes</a>
+                                <a class="dropdown-item" href="{{ path('show_prototype') }}">Prototypes</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Compte-Rendus</a>
+                                <a class="dropdown-item" href="{{ path('show_compteRendu') }}">Compte-Rendus</a>
 
                             </div>
+
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">News</a>
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">News</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Nouvelles</a>
+                                <a class="dropdown-item" href="{{ path('show_nouvelle') }}">Nouvelles</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Séminaires</a>
+                                <a class="dropdown-item" href="{{ path('show_seminaire') }}">Séminaires</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Reunions</a>
+                                <a class="dropdown-item" href="{{ path('show_reunion') }}">Réunions</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('show_evenement') }}">Evénements</a>
 
                             </div>
+
                         </li>
 
                         <li class="nav-item dropdown">
@@ -140,8 +161,24 @@
     </div>
         {% endblock %}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    {#   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>#}
+    {#  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>#}
+    {#<script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>#}
+
+
+    <script src="{{ asset('assets/js/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/owlcarousel/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.elevatezoom.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
     </body>
 </html>

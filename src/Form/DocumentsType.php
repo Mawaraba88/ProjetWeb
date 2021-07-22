@@ -4,17 +4,18 @@ namespace App\Form;
 
 use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
-use App\Entity\DonneesType;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class DocumentsType extends AbstractType
 {
@@ -22,27 +23,42 @@ class DocumentsType extends AbstractType
     {
         $builder
             ->add('categorydonnees', EntityType::class,[
-                'mapped' => false,
+                //'mapped' => false,
                 'class' =>CategoryDonnees::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Choisir une catégorie',
                 'label' => 'Category'
                 ])
-            ->add('donneesType', ChoiceType::class,[
+          /*  ->add('donneesType', ChoiceType::class,[
                 'placeholder' => 'Type de document (Choisir un type de document)'
             ])
-            ->add('donneesType')
-            ->add('title')
-            ->add('resume')
+            ->add('donneesType')*/
+          ->add('title',TextType::class)
+            ->add('resume', TextareaType::class)
             //->add('picture')
-            ->add('file', FileType::class)
-           // ->add('createdAt')
-            ->add('startCreatedAt')
-            ->add('endCreatedAt')
+            //->add('file', FileType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => false,
+
+
+            ])
+
+            ->add('brochureFile', VichFileType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                //'delete_label' => '...',
+                'download_uri' => false,
+                // 'download_label' => '...',
+
+            ])
+
+
             ->add('author')
             ->add('Valider', SubmitType::class)
         ;
-
+/*
         $formModifier = function(FormInterface $form, CategoryDonnees $category =null){
             $donneesType = null === $category ? [] : $category->getDonneesTypes();
             $form ->add('donneesType', EntityType::class, [
@@ -59,6 +75,7 @@ class DocumentsType extends AbstractType
             $formModifier ($event->getForm()->getParent(), $category);
         }
         );
+*/
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+{% block body %}
+
+    <div class="container">
+    <div class="row">
+        <div class="col">
+            {% include 'documenttype/_filter.html.twig' %}
+        </div>
+    </div>
+    <div class="row">
+    <div class="col">
+        <div class="grid">
+            {% for documenttype in documents  %}
+               {% include 'documenttype/_document.html.twig' %}
+           {% endfor %}
+        </div>
+    </div>
+    </div>
+    </div>
+    {#
+    <h1>Les Articles</h1>
+      <div class="row">
+        <div class="col-md-3">
+            <h1>Filtrer</h1>
+            {{ form(form) }}
+        </div>
+    <p>Liste des articles </p>
+      </div>
+
+
+    {% for documenttype in documents  %}
+    <div class="d-flex position-relative">
+
+
+
+                <img src="{{ asset('uploads/' ~ documenttype.picture) }}" class="flex-shrink-0 me-3" style="width: 120px" alt="picture">
+
+        <div >
+                    <h5 class="mt-0">Titre: {{ documenttype.title }}</h5>
+                    <p >Résumé : {{ documenttype.resume }}</p>
+
+            Auteur(s) :
+            {% set authors = documenttype.author %}
+            {% set chaine = "" %}
+            {% for author in authors %}
+                {% set chaine = chaine ~ author.fullname %}
+                {% set chaine = chaine ~ ', ' %}
+            {% endfor %}
+            <p>{{ chaine }}</p>
+            <p>Publié : {{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d') : '' }}</p>
+            <p><a href="{{ asset('uploads/' ~ documenttype.brochureFilename) }}" >Télécharger l'article</a></p>
+
+
+
+
+            </div>
+
+        </div>
+        <hr class="featurette-divider">
+
+    {% endfor %}
+    #}
+
+
+    {#    <div class="col-md-9">
+
+                <div class="row document-container">
+
+                         <div class="col-md-3">
+                             {# {% include 'documenttype/show.html.twig' %} #}
+  {# <p>Découvrez nos derniers articles </p>
+    {#   <h1>Documenttype</h1>
+
+                             <table class="table">
+                                 <thead>
+                                    <tr>
+
+                                        <th>Title</th>
+                                        <th>Resume</th>
+                                        <th>Picture</th>
+                                        <th>CreatedAt</th>
+                                        <th>Author</th>
+                                        <th>Article à télécharger</th>
+
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for documenttype in documents %}
+                                     <tr>
+
+                                         <td>{{ documenttype.title }}</td>
+                                         <td>{{ documenttype.resume }}</td>
+                                         <td><img src="{{ asset('uploads/' ~ documenttype.picture) }}" title="picture" alt="picture" class="img-fluid"/></td>
+
+                                         <td>{{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d') : '' }}</td>
+                                         {% set authors = documenttype.author %}
+                                         {% set chaine = "" %}
+                                         {% for author in authors %}
+                                             {% set chaine = chaine ~ author.fullname %}
+                                             {% set chaine = chaine ~ ', ' %}
+                                         {% endfor %}
+                                         <td>{{ chaine }}</td>
+                                         <td><a href="{{ asset('uploads/' ~ documenttype.brochureFilename) }}" >Télécharger l'article</a></td>
+                                     </tr>
+                                 {% endfor %}
+                                 </tbody>
+                             </table>
+                             {# <a href="{{ path('documenttype_edit', {'id': documenttype.id}) }}">edit</a> #}
+                        {#  </div>
+
+                    <a href="{{ path('documenttype_index') }}">back to list</a>
+                    {# {{ include('documenttype/_delete_form.html.twig') }}
+                 </div><!-- /.row -->
+        </div>
+    </div>#}
+
+
+    <!-- START THE FEATURETTES -->
+
+
+
+{%  endblock%}

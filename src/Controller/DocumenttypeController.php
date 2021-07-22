@@ -2,10 +2,17 @@
 
 namespace App\Controller;
 
+use App\Classe\Search;
+use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
-use App\Entity\Users;
-use App\Form\DocumenttypeType;
+
+
+use App\Form\DocumentsType;
+
+use App\Form\SearchType;
+use App\Repository\CategoryDonneesRepository;
 use App\Repository\DocumenttypeRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -21,15 +28,139 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class DocumenttypeController extends AbstractController
 {
+    private $repoCategory;
+    private $entityManager;
+    public function __construct( CategoryDonneesRepository  $repoCategory, EntityManagerInterface $entityManager){
+
+        $this->repoCategory = $repoCategory;
+        $this->entityManager = $entityManager;
+
+    }
+
     /**
-     * @Route("/", name="documenttype_index", methods={"GET"})
+     * @Route("/home", name="documenttype_index", methods={"GET"})
      */
-    public function index(DocumenttypeRepository $documenttypeRepository): Response
+    public function index(/*DocumenttypeRepository $documenttypeRepository*/): Response
     {
+        $documenttypes =  $this->getDoctrine()->getRepository(Documenttype::class)->findBy(
+            ['createdAt' =>'asc']
+        );
+
         return $this->render('documenttype/index.html.twig', [
-            'documenttypes' => $documenttypeRepository->findAll(),
+            //'documenttypes' => $documenttypeRepository->findAll(),
+            'documenttypes' => $documenttypes
+
         ]);
     }
+
+    /**
+     * @Route ("/showCompteRendu", name= "show_compteRendu")
+     */
+    public function showCompteRendu(Request $request):Response
+    {
+        //die('toto');
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $entityManager = $this->getDoctrine()->getManager();
+        $documents = $entityManager->getRepository(DocumentType::class)->findDocumentsByCriteria('Compte-Rendus');
+        //die(var_dump(count($documents)));
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search);
+        }else{
+            //recuperation de tous les produits en passant par le repository de la classe en question
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Compte-Rendus');
+        }
+        return $this->render('documenttype/show_compte_rendus.html.twig', [
+            'documents' => $documents,
+            'form'=>$form->createView()
+
+        ]);
+    }
+
+    /**
+     * @Route ("/showPrototype", name= "show_prototype")
+     */
+    public function showPrototype(Request $request):Response
+    {
+        //die('toto');
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+        $entityManager = $this->getDoctrine()->getManager();
+        $documents = $entityManager->getRepository(DocumentType::class)->findDocumentsByCriteria('Prototypes');
+        //die(var_dump(count($documents)));
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search);
+        }else{
+            //recuperation de tous les produits en passant par le repository de la classe en question
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Prototypes');
+        }
+        return $this->render('documenttype/show_prototypes.html.twig', [
+            'documents' => $documents,
+            'form'=>$form->createView()
+
+        ]);
+    }
+    /**
+     * @Route ("/showRapport", name= "show_rapport")
+     */
+    public function showRapport(Request $request):Response
+    {
+        //die('toto');
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $documents = $entityManager->getRepository(DocumentType::class)->findDocumentsByCriteria('Rapports');
+        //die(var_dump(count($documents)));
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search);
+        }else{
+            //recuperation de tous les produits en passant par le repository de la classe en question
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Rapports');
+        }
+        return $this->render('documenttype/show_rapports.html.twig', [
+            'documents' => $documents,
+            'form'=>$form->createView()
+
+        ]);
+    }
+
+
+    /**
+     * @Route ("/showArticle", name= "show_article")
+     */
+    public function showArticle(Request $request):Response
+    {
+        //pour passer un formulaire à twig
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        //$documents = $entityManager->getRepository(DocumentType::class)->findDocumentsByCriteria('Articles');
+
+        //recuperation de la requete envoyé par url
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search);
+        }else{
+            //recuperation de tous les produits en passant par le repository de la classe en question
+            $documents = $this->entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Articles');
+        }
+
+
+
+        //die(var_dump(count($documents)));
+        return $this->render('documenttype/show_articles.html.twig', [
+            'documents' => $documents,
+            'form'=>$form->createView()
+
+        ]);
+    }
+
 
     /**
      * @Route("/new", name="documenttype_new", methods={"GET","POST"})
@@ -37,38 +168,13 @@ class DocumenttypeController extends AbstractController
     public function new(Request $request /*SluggerInterface $slugger*/): Response
     {
         $documenttype = new Documenttype();
-        $form = $this->createForm(DocumenttypeType::class, $documenttype);
+        $form = $this->createForm(DocumentsType::class, $documenttype);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /*/** @var UploadedFile $brochureFile */
-            //$brochureFile = $form->get('brochure')->getData();
 
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-           /* if ($brochureFile) {
-                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $brochureFile->move(
-                        $this->getParameter('brochures_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $documenttype->setBrochureFilename($newFilename);
-
-            }*/
             $user =$this->getUser();
-            $documenttype->addAuthor($user);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($documenttype);
             $entityManager->flush();
@@ -83,7 +189,7 @@ class DocumenttypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="documenttype_show", methods={"GET"})
+     * @Route("/document/{id}", name="documenttype_show", methods={"GET"})
      */
     public function show(Documenttype $documenttype): Response
     {
@@ -93,14 +199,12 @@ class DocumenttypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="documenttype_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="documenttype_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Documenttype $documenttype): Response
     {
-        /*$documenttype->setBrochureFilename(
-            new File($this->getParameter('images_directory').'/'.$documenttype->getBrochureFilename())
-        );*/
-        $form = $this->createForm(DocumenttypeType::class, $documenttype);
+
+        $form = $this->createForm(DocumentsType::class, $documenttype);
         $form->handleRequest($request);
 
 
@@ -120,7 +224,7 @@ class DocumenttypeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="documenttype_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="documenttype_delete", methods={"POST"})
      */
     public function delete(Request $request, Documenttype $documenttype): Response
     {
@@ -132,4 +236,27 @@ class DocumenttypeController extends AbstractController
 
         return $this->redirectToRoute('account');
     }
+
+    /**
+     * @Route("/showDocumenttypes/{id}", name="show_documenttype")
+     */
+    public function showDocumenttype(?CategoryDonnees $category ): Response
+    {
+
+        if($category){
+
+            $documents = $category->getDocumenttypes()->getValues();
+        }
+        else{
+            return  $this->redirectToRoute('home');
+        }
+
+        //dd($document);
+        $categories = $this->repoCategory->findAll();
+        return $this->render('documenttype/index.html.twig', [
+            'documents' => $documents,
+            'categories' => $categories
+        ]);
+    }
+
 }

@@ -38,7 +38,7 @@
                                 <div class="login_footer form-group">
                                     <div class="chek-form">
                                         <div class="custome-checkbox">
-                                            {{ form_row(registrationForm.agreeTerms) }}
+                                            {{ form_row(registrationForm.studylevel) }}
                                         </div>
                                     </div>
                                 </div>
@@ -58,4 +58,11 @@
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        $('.js-partners-multiple').select2();
+    });
+</script>
 {% endblock %}

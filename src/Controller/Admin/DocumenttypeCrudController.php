@@ -29,8 +29,10 @@ class DocumenttypeCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
+
             TextField::new('title'),
             TextEditorField::new('resume'),
+            AssociationField::new('categorydonnees'),
             ImageField::new('picture')
               ->setBasePath('uploads/')
               ->setUploadDir('public/uploads')
@@ -47,10 +49,10 @@ class DocumenttypeCrudController extends AbstractCrudController
             //->setBasePath('uploads/'),
             AssociationField::new('author'),
             BooleanField::new('isActive'),
-            AssociationField::new('categorydonnees'),
-            AssociationField::new('donneesType'),
-            DateField:: new('startCreatedAt'),
-            DateField:: new('endCreatedAt')
+
+           // AssociationField::new('donneesType'),
+           // DateField:: new('startCreatedAt'),
+            //DateField:: new('endCreatedAt')
 
 
 

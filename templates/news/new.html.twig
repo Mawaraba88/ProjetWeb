@@ -1,29 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New News and Events{% endblock %}
+{% block title %}New News{% endblock %}
 
 {% block body %}
-    <div class="login_register_wrap section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-md-10">
-                    <div class="login_wrap">
-                        <div class="padding_eight_all bg-white">
-                            <div class="heading_s1">
-                                <h3>Add News</h3>
-                            </div>
-                            <div class="content">
+    <h1>Create new News</h1>
 
-                                {{ include('news/_form.html.twig') }}
+    {{ include('news/_form.html.twig') }}
 
-                                <a href="{{ path('account') }}">back to account</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <a href="{{ path('news_index') }}">back to list</a>
 {% endblock %}
