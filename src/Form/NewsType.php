@@ -4,9 +4,13 @@ namespace App\Form;
 
 use App\Entity\CategoryNews;
 use App\Entity\News;
+use App\Entity\User;
+use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,12 +50,8 @@ class NewsType extends AbstractType
                 'format' => 'yyyy-MM-dd'])
 
 
-            ->add('duration_of_publication', DateType::class, [
-                'label' =>'Durée de publication',
-                'required'=>false,
-                'widget' => 'single_text',
-                // this is actually the default format for single_text
-                'format' => 'yyyy-MM-dd'])
+            ->add('durationOfPublication', NumberType::class)
+
 /*
 
             ->add('imageFile', VichImageType::class, [
@@ -71,9 +71,16 @@ class NewsType extends AbstractType
 
             ])
 */
-            ->add('authors')
+    ->add('authors',EntityType::class, [
+
+    'class'=>User::class,
+    'multiple'=> true,
+    'attr'=>[
+        'class'=>'js-author-multiple'
+    ]
+])
             ->add('durationOfPublication')
-            ->add('Valider', SubmitType::class)
+           // ->add('Valider', SubmitType::class)
         ;
 
     }

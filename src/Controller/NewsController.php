@@ -48,8 +48,10 @@ class NewsController extends AbstractController
     public function showNews(Request $request):Response
     {
 
+
         $entityManager = $this->getDoctrine()->getManager();
-        $news = $entityManager->getRepository(News::class)->findNewsByCriteria('Nouvelles');
+        $newsTmp = $entityManager->getRepository(News::class)->findNewsByCriteria('Nouvelles');
+        $news = array();
 
         $search = new SearchNews();
         $form = $this->createForm( SearchNewsType::class , $search);
@@ -57,10 +59,22 @@ class NewsController extends AbstractController
         //recuperation de la requete envoyé par url
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $news = $this->entityManager->getRepository(News::class)->findwithSearchNews($search);
-        } else {
-            //recuperation de tous les produits en passant par le repository de la classe en question
-            $news = $this->entityManager->getRepository(News::class)->findNewsByCriteria('Nouvelles');
+            $newsTmp = $this->entityManager->getRepository(News::class)->findwithSearchNews($search, 'Nouvelles');
+        }
+
+        foreach ($newsTmp as $new) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($new->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $new->getDurationOfPublication()) {
+                $new->setIsActive(false);
+            } else {
+                $news[] = $new;
+            }
+        }
+
+        $entityManager->flush();
 
             return $this->render('news/show_nouvelles.html.twig', [
                 'news' => $news,
@@ -68,7 +82,7 @@ class NewsController extends AbstractController
 
             ]);
         }
-    }
+
     /**
      * @Route ("/showEvenements", name= "show_evenement")
      */
@@ -76,18 +90,31 @@ class NewsController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $news = $entityManager->getRepository(News::class)->findNewsByCriteria('Evénements');
+        $newsTmp = $entityManager->getRepository(News::class)->findNewsByCriteria('Evénements');
+        $news = array();
 
         $search = new SearchNews();
-        $form = $this->createForm(SearchNewsType::class, $search);
+        $form = $this->createForm( SearchNewsType::class , $search);
 
         //recuperation de la requete envoyé par url
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $news = $this->entityManager->getRepository(News::class)->findwithSearchNews($search);
-        } else {
-            //recuperation de tous les produits en passant par le repository de la classe en question
-            $news = $this->entityManager->getRepository(News::class)->findNewsByCriteria('Evénements');
+            $newsTmp = $this->entityManager->getRepository(News::class)->findwithSearchNews($search, 'Evénements');
+        }
+
+        foreach ($newsTmp as $new) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($new->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $new->getDurationOfPublication()) {
+                $new->setIsActive(false);
+            } else {
+                $news[] = $new;
+            }
+        }
+
+        $entityManager->flush();
 
 
             return $this->render('news/show_evenements.html.twig', [
@@ -96,7 +123,7 @@ class NewsController extends AbstractController
 
             ]);
         }
-    }
+
 
     /**
      * @Route ("/showSeminaires", name= "show_seminaire")
@@ -105,18 +132,31 @@ class NewsController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $news = $entityManager->getRepository(News::class)->findNewsByCriteria('Séminaires');
+        $newsTmp = $entityManager->getRepository(News::class)->findNewsByCriteria('Séminaires');
+        $news = array();
 
         $search = new SearchNews();
-        $form = $this->createForm(SearchNewsType::class, $search);
+        $form = $this->createForm( SearchNewsType::class , $search);
 
         //recuperation de la requete envoyé par url
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $news = $this->entityManager->getRepository(News::class)->findwithSearchNews($search);
-        } else {
-            //recuperation de tous les produits en passant par le repository de la classe en question
-            $news = $this->entityManager->getRepository(News::class)->findNewsByCriteria('Séminaires');
+            $newsTmp = $this->entityManager->getRepository(News::class)->findwithSearchNews($search, 'Séminaires');
+        }
+
+        foreach ($newsTmp as $new) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($new->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $new->getDurationOfPublication()) {
+                $new->setIsActive(false);
+            } else {
+                $news[] = $new;
+            }
+        }
+
+        $entityManager->flush();
 
 
             return $this->render('news/show_seminaires.html.twig', [
@@ -125,7 +165,7 @@ class NewsController extends AbstractController
 
             ]);
         }
-    }
+
 
     /**
      * @Route ("/showReunions", name= "show_reunion")
@@ -134,27 +174,39 @@ class NewsController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $reunions = $entityManager->getRepository(News::class)->findNewsByCriteria('Réunions');
+        $newsTmp = $entityManager->getRepository(News::class)->findNewsByCriteria('Réunions');
+        $news = array();
 
         $search = new SearchNews();
-        $form = $this->createForm(SearchNewsType::class, $search);
+        $form = $this->createForm( SearchNewsType::class , $search);
 
         //recuperation de la requete envoyé par url
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $reunions = $this->entityManager->getRepository(News::class)->findwithSearchNews($search);
-        } else {
-            //recuperation de tous les produits en passant par le repository de la classe en question
-            $reunions = $this->entityManager->getRepository(News::class)->findNewsByCriteria('Réunions');
+            $newsTmp = $this->entityManager->getRepository(News::class)->findwithSearchNews($search, 'Réunions');
+        }
 
+        foreach ($newsTmp as $new) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($new->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $new->getDurationOfPublication()) {
+                $new->setIsActive(false);
+            } else {
+                $news[] = $new;
+            }
+        }
+
+        $entityManager->flush();
 
             return $this->render('news/show_reunions.html.twig', [
-                'reunions' => $reunions,
+                'reunions' => $news,
                 'form' =>$form->createView()
 
             ]);
         }
-    }
+
 
     /**
      * @Route("/new", name="news_new", methods={"GET","POST"})

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 
+
 use App\Classe\SearchNews;
 use App\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -23,7 +24,8 @@ class NewsRepository extends ServiceEntityRepository
 
     public function findNewsByCriteria($criteria)
     {
-        $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n JOIN n.categorynews c WHERE c.name = :criteria');
+        $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n JOIN n.categorynews c WHERE c.name = :criteria AND n.isActive=1
+        ORDER BY n.createdAt DESC ');
         $query->setParameter('criteria', $criteria);
         //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
         $tab = $query->getResult();
@@ -32,35 +34,83 @@ class NewsRepository extends ServiceEntityRepository
     }
 
 
-    /**
-     * requite qui permet de recupérer les articles en fonctions de la recherche de l'utilisateur
-     * @return News[]
-     */
-    public function findwithSearchNews(SearchNews $search)
-    {
-        $query = $this
-            ->createQueryBuilder('n')
-            ->select('c', 'n')
-            ->join('n.categoriesnews', 'c');
 
-        if(!empty($search->categoriesnews)){
-            $query = $query
-                ->andWhere('c.id IN(:categoriesNews)')
-                ->setParameter('categoriesNews', $search->categoriesNews);
-        }
-        if(!empty($search->startCreatedAt))
-        {
-            $query = $query
-            ->andWhere('n.startCreatedAt >='.date('Y-m-d'));
-        }
-        if(!empty($search->endCreatedAt))
-        {
-            $query = $query
-                ->andWhere('n.endCreatedAt >='.date('Y-m-d'));
-        }
-        return $query->getQuery()->getResult();
+    public function findwithSearchNews(SearchNews $search, $criteria) {
+        $searchString = empty($search->string) ? '' : $search->string;
+       // die(var_dump(($search)));
+        $startCreatedAt = empty($search->startCreatedAt) ? '' : $search->startCreatedAt->format('Y-m-d');
+        $searchEndDate = empty($search->endCreatedAt) ? '' : $search->endCreatedAt->format('Y-m-d');
 
+        //die(var_dump($search->string));
+        $okQuery = false;
+
+        $tab = array();
+
+        if(!empty($searchString) && !empty($startCreatedAt) && !empty($searchEndDate)) {
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n 
+            JOIN n.categorynews c  WHERE c.name = :criteria AND n.isActive=1 AND 
+            (n.title LIKE :searchString OR  n.startCreatedAt >= :startCreatedAt AND n.endCreatedAt <= :searchEndDate)');
+            //die(var_dump($query));
+            $query->setParameter('searchString', '%' . $searchString . '%');
+            $query->setParameter('startCreatedAt', $startCreatedAt);
+            $query->setParameter('searchEndDate', $searchEndDate);
+        } elseif(!empty($searchString)) {
+            //die(var_dump($search));
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n 
+            JOIN n.categorynews c  WHERE c.name = :criteria AND n.isActive=1 AND 
+            n.title LIKE :searchString ORDER BY n.createdAt DESC');
+            $query->setParameter('searchString', '%' . $searchString . '%');
+        } elseif(!empty($startCreatedAt) && !empty($searchEndDate)) {
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n 
+            JOIN n.categorynews c  WHERE c.name = :criteria AND n.isActive=1 AND 
+            (n.startCreatedAt >= :startCreatedAt AND n.endCreatedAt <= :searchEndDate)
+            ORDER BY n.createdAt DESC');
+            $query->setParameter('startCreatedAt', $startCreatedAt);
+            $query->setParameter('searchEndDate', $searchEndDate);
+        }
+
+        if($okQuery) {
+            $query->setParameter('criteria', $criteria);
+            //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+            $tab = $query->getResult();
+        }
+
+        return $tab;
     }
+
+
+  /*  public function findwithSearchNews(SearchNews $search, $criteria) {
+        $searchString = empty($search->string) ? '' : $search->string;
+        // die(var_dump(($search)));
+
+
+        //die(var_dump($search->string));
+        $okQuery = false;
+
+        $tab = array();
+
+        if(!empty($searchString) ) {
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n 
+            JOIN n.categorynews c  WHERE c.name = :criteria AND n.isActive=1 AND 
+            (n.title LIKE :searchString) ORDER BY n.createdAt DESC');
+            $query->setParameter('searchString', '%' . $searchString . '%');
+            //die(var_dump($query));
+
+        }
+
+        if($okQuery) {
+            $query->setParameter('criteria', $criteria);
+            //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+            $tab = $query->getResult();
+        }
+
+        return $tab;
+    }
+  */
 
     // /**
     //  * @return News[] Returns an array of News objects

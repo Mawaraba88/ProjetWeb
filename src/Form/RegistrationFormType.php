@@ -4,13 +4,10 @@ namespace App\Form;
 
 use App\Entity\Partners;
 use App\Entity\User;
-
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -20,23 +17,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use function Sodium\add;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            //->add('username')
             ->add('firstname', Texttype::class, [
-        'label'=>"Votre prénom",
-        'constraints' => new length([
-            'min'=> 2,
-            'max'=> 30]),
-        'attr'=>[
-            'placeholder' => 'Saisir votre prénom'
-        ]
-    ])
+                'label'=>"Votre prénom",
+                'constraints' => new length([
+                    'min'=> 2,
+                    'max'=> 30]),
+                'attr'=>[
+                    'placeholder' => 'Saisir votre prénom'
+                ]
+            ])
             ->add('lastname',TextType::class, [
                 'label' => "Votre nom",
                 'constraints' => new length([
@@ -56,14 +52,14 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
 
-           /* ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])*/
+            /* ->add('agreeTerms', CheckboxType::class, [
+                 'mapped' => false,
+                 'constraints' => [
+                     new IsTrue([
+                         'message' => 'You should agree to our terms.',
+                     ]),
+                 ],
+             ])*/
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -92,26 +88,43 @@ class RegistrationFormType extends AbstractType
                     'attr' => [
                         'placeholder' =>'Confirmez votre mot de passe'
                     ]
-                    ]
+                ]
             ])
-           /* ->add('partners', ChoiceType::class, [
-                'choices' =>$this->getChoice(),
-                'required' =>false
-            ])*/
-           ->add('partners',EntityType::class, [
-               'class'=>Partners::class,
-               'multiple' =>true,
-               'attr' =>[
-                   'class'=>'js-partners-multiple'
-               ],
-               'choice_label' => 'name',
-               'placeholder' => 'Sélectionner les partenaires',
-               'label' => 'Partners'
-           ])
+            /* ->add('partners', ChoiceType::class, [
+                 'choices' =>$this->getChoice(),
+                 'required' =>false
+             ])*/
+            ->add('partners',EntityType::class, [
+                'class'=>Partners::class,
+                'multiple' =>true,
+               // 'placeholder' => 'Sélectionner les partenaires',
+                'attr' =>[
+                    'class'=>'js-partners-multiple',
+                ],
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionner les partenaires',
+                'label' => 'Partners'
+            ])
 
             ->add('studylevel', ChoiceType::class, [
                 'choices' =>$this->getChoices(),
-                'required' =>false
+                'required' =>false,
+
+                'placeholder' => 'Choisir votre niveau '
+
+            ])
+            ->add('phone', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Saisir votre numéro de téléphone'
+                ]
+
+            ])
+
+            ->add('fieldOfResearch', TextType::class, [
+                'attr'=>[
+                    'placeholder' => 'Saisir domaine de recherche'
+                ]
+
             ])
 
         ;
@@ -134,6 +147,7 @@ class RegistrationFormType extends AbstractType
         }
         return $outpout;
     }
+    /*
     private function getChoice()
     {
         $choice = User::PARTNERS;
@@ -143,5 +157,5 @@ class RegistrationFormType extends AbstractType
             $outpout[$v] = $k;
         }
         return $outpout;
-    }
+    }*/
 }

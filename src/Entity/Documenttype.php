@@ -130,6 +130,7 @@ class Documenttype
         $this->author = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updateAt = new \DateTime();
+        $this->durationOfPublication=7;
        // $this->documents = new ArrayCollection();
 
     }
@@ -190,14 +191,14 @@ class Documenttype
 
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getAuthor(): Collection
     {
         return $this->author;
     }
 
-    public function addAuthor(Users $author): self
+    public function addAuthor(User $author): self
     {
         if (!$this->author->contains($author)) {
             $this->author[] = $author;
@@ -206,7 +207,7 @@ class Documenttype
         return $this;
     }
 
-    public function removeAuthor(Users $author): self
+    public function removeAuthor(User $author): self
     {
         $this->author->removeElement($author);
 
@@ -332,6 +333,11 @@ class Documenttype
     private $brochureFile;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $durationOfPublication;
+
+    /**
      * @return File
      */
     public function getBrochureFile(): ?File
@@ -350,6 +356,18 @@ class Documenttype
             // otherwise the event listeners won't be called and the file is lost
             $this->setUpdateAt(new \DateTimeImmutable);
         }
+    }
+
+    public function getDurationOfPublication(): ?int
+    {
+        return $this->durationOfPublication;
+    }
+
+    public function setDurationOfPublication(?int $durationOfPublication): self
+    {
+        $this->durationOfPublication = $durationOfPublication;
+
+        return $this;
     }
 
 

@@ -87,6 +87,13 @@
                                                 Publié le {{ doc.createdAt | date("d/m/Y")}}<br>
 
                                                 Auteur(s) :
+                                                {% set authors = doc.author %}
+                                                {% set chaine = "" %}
+                                                {% for author in authors %}
+                                                    {% set chaine = chaine ~ author.getFullName %}
+                                                    {% set chaine = chaine ~ ', ' %}
+                                                {% endfor %}
+                                                {{ chaine }}
 
                                             </document>
                                             <div class="btn-group">

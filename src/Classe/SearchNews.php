@@ -25,7 +25,7 @@ class SearchNews
     /**
      * @var \DateTime
      */
-    public $endCreatedAt ;
+    public $endCreatedAt;
 
 
 

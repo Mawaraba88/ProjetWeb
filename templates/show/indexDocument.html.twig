@@ -13,7 +13,14 @@
            {{ document.resume | raw}}
        </p>
        <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
-           Auteurs :
+       Auteur(s) :
+       {% set authors = document.author %}
+       {% set chaine = "" %}
+       {% for author in authors %}
+           {% set chaine = chaine ~ author.getFullName %}
+           {% set chaine = chaine ~ ', ' %}
+       {% endfor %}
+       {{ chaine }}
        <p>
        {% if document.brochureFilename %}
        <div class="img-fluid">

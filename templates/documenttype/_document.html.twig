@@ -37,7 +37,7 @@
                     {% set authors = documenttype.author %}
                     {% set chaine = "" %}
                     {% for author in authors %}
-                        {% set chaine = chaine ~ author.fullname %}
+                        {% set chaine = chaine ~ author.getFullName %}
                         {% set chaine = chaine ~ ', ' %}
                     {% endfor %}
                     {{ chaine }}

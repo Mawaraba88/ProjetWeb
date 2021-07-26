@@ -2,13 +2,13 @@
 
 namespace App\Services;
 use App\Entity\EmailModel;
-use App\Entity\Users;
+use App\Entity\User;
 use Mailjet\Client;
 use Mailjet\Resources;
 
 class EmailSender
 {
-    public function sendEmail(Users $users, EmailModel $email)
+    public function sendEmail(User $users, EmailModel $email)
     {
         $mj = new Client(getenv('MJ_APIKEY_PUBLIC'), getenv('MJ_APIKEY_PRIVATE'),true,['version' => 'v3.1']);
          $body = [

@@ -3,7 +3,7 @@ namespace App\Form;
 use App\Classe\Search;
 use App\Entity\CategoryDonnees;
 
-use App\Entity\Users;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -26,6 +26,19 @@ class SearchType extends AbstractType
                     'class'=>'form-control-sm'
                 ]
             ])
+
+            ->add('searchDate', DateType::class, [
+                'label' =>'Par date',
+                'required'=>false,
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd'
+             /*   'placeholder' => [
+        'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
+    ]*/
+            ])
+
+
 
             //pour faire reference à l'entité categorie on appel EntityType en 2ème paramètre
           /*  ->add('categoriesDonnees', EntityType::class, [

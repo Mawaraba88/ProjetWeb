@@ -49,10 +49,13 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
+        //die(var_dump($token->getUser()->getIsValide()));
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('home'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        if($token->getUser()->getIsValide())
+            return new RedirectResponse($this->urlGenerator->generate('account'));
+        else
+            return new RedirectResponse($this->urlGenerator->generate('app_logout'));
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

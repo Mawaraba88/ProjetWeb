@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\CategoryDonnees;
 use App\Entity\Documenttype;
 
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -55,8 +57,17 @@ class DocumentsType extends AbstractType
             ])
 
 
-            ->add('author')
-            ->add('Valider', SubmitType::class)
+            ->add('author',EntityType::class, [
+
+                'class'=>User::class,
+                'multiple'=> true,
+                'attr'=>[
+                    'class'=>'js-author-multiple'
+                ]
+            ])
+
+            ->add('durationOfPublication')
+           // ->add('Valider', SubmitType::class)
         ;
 /*
         $formModifier = function(FormInterface $form, CategoryDonnees $category =null){

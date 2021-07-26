@@ -50,14 +50,16 @@
                             <h5 class="card-title">{{ document.title }}</h5>
                             <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
 
-                            Auteurs :
+                            Auteur(s) :
+                            {% set authors = document.author %}
+                            {% set chaine = "" %}
+                            {% for author in authors %}
+                                {% set chaine = chaine ~ author.getFullName %}
+                                {% set chaine = chaine ~ ', ' %}
+                            {% endfor %}
+                            {{ chaine }}
 
-{#
-                            {% if document.startCreatedAt and document.endCreatedAt %}
-                              <p class="date"> Du {{ document.startCreatedAt | date("d/m/Y") }}
-                                  Au {{ document.endCreatedAt | date("d/m/Y") }} </p>
-                            {% endif %}
-#}
+
                             <a href="{{ path('showDocument', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
                         </div>
                     </div>

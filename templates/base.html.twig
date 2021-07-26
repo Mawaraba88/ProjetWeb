@@ -6,7 +6,8 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
        {#  <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">#}
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}}
+            {{ encore_entry_link_tags('app') }}
+            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         {% endblock %}
       {#  <style>
            /*.grid
@@ -100,9 +101,10 @@
                             <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-user-plus"></i>Connexion</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i>S'inscrire</a>
+                             <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i>S'inscrire</a>
                         </li>
                         {% endif %}
+
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
@@ -164,8 +166,31 @@
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
      <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
-
-
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/owlcarousel/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.elevatezoom.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            //alert("Super");
+            $('.js-partners-multiple').select2();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            //alert("Super");
+            $('.js-author-multiple').select2();
+        });
+    </script>
 {#<script src="{{ asset('assets/js/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>

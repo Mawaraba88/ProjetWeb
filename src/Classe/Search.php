@@ -4,7 +4,7 @@
 namespace App\Classe;
 
 use App\Entity\CategoryDonnees;
-use App\Entity\Users;
+use App\Entity\User;
 
 
 class Search
@@ -19,9 +19,10 @@ class Search
      */
     public $categoriesDonnees = [];
 
+
     /**
-     * @var Users[]
+     * @var \DateTime
      */
-    public $authors= [];
+    public $searchDate = null;
 
 }

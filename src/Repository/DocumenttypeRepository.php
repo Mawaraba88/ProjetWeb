@@ -52,7 +52,9 @@ class DocumenttypeRepository extends ServiceEntityRepository
 
     public function findDocumentsByCriteria($criteria)
     {
-        $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d JOIN d.categorydonnees c WHERE c.name = :criteria');
+        $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d 
+        JOIN d.categorydonnees c WHERE c.name = :criteria AND d.isActive=1
+        ORDER BY d.createdAt DESC');
         $query->setParameter('criteria', $criteria);
         //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
         $tab = $query->getResult();
@@ -60,42 +62,49 @@ class DocumenttypeRepository extends ServiceEntityRepository
         return $tab;
     }
 
-    /**
-     * requite qui permet de recupérer les articles en fonctions de la recherche de l'utilisateur
-     * @return Documenttype[]
-     */
-    public function findwithSearch(Search $search)
-    {
-        //creation d'une requete
-        $query = $this
-            ->createQueryBuilder('d')
-            ->select('c', 'd', 'a')
-            ->join('d.categorydonnees', 'c')
-            ->join('d.author', 'a');
+    public function findwithSearch(Search $search, $criteria) {
+        $searchString = empty($search->string) ? '' : $search->string;
+        //die(var_dump(($search)));
+        $searchDate = empty($search->searchDate) ? '' : $search->searchDate->format('Y-m-d');
+        //die(var_dump($search->string));
+        $okQuery = false;
 
+        $tab = array();
 
-        if(!empty($search->categoriesDonnees)){
-            $query = $query
-                ->andWhere('c.id IN(:categoriesDonnees)')
-                ->setParameter('categoriesDonnees', $search->categoriesDonnees);
+        if(!empty($searchString) && !empty($searchDate)) {
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d 
+            JOIN d.categorydonnees c JOIN d.author a WHERE c.name = :criteria AND d.isActive=1 AND 
+            (d.title LIKE :searchString OR a.firstname LIKE :searchString OR a.lastname LIKE :searchString 
+            OR d.createdAt like :searchDate)
+            ORDER BY d.createdAt DESC');
+            $query->setParameter('searchString', '%' . $searchString . '%');
+            $query->setParameter('searchDate', '%' . $searchDate . '%');
+        } elseif(!empty($searchString)) {
+            //die(var_dump($search));
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d 
+            JOIN d.categorydonnees c JOIN d.author a WHERE c.name = :criteria AND d.isActive=1 AND 
+            (d.title LIKE :searchString OR a.firstname LIKE :searchString OR a.lastname LIKE :searchString)
+            ORDER BY d.createdAt DESC');
+            $query->setParameter('searchString', '%' . $searchString . '%');
+        } elseif(!empty($searchDate)) {
+            $okQuery = true;
+            $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d 
+            JOIN d.categorydonnees c JOIN d.author a WHERE c.name = :criteria AND d.isActive=1 AND 
+            d.createdAt like :searchDate
+            ORDER BY d.createdAt DESC');
+            $query->setParameter('searchDate', '%' . $searchDate . '%');
         }
 
-
-       if(!empty(($search->string )or( $search->authors))){
-            $query = $query
-                ->andWhere('d.title Like :string' )
-                ->orWhere('a.id  Like :authors')
-              //  ->andWhere('d.author Like :string')
-                ->setParameter('string', "%{$search->string}%")
-                ->setParameter('authors', "%{$search->authors}%");
+        if($okQuery) {
+            $query->setParameter('criteria', $criteria);
+            //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+            $tab = $query->getResult();
         }
 
-        /*if(!empty($search->author)){
-            $query = $query
-                ->andWhere('d.author Like :authors' )
-                ->setParameter('authors', "%{$search->authors}%");
-        }*/
-
-        return $query->getQuery()->getResult();
+        return $tab;
     }
+
+
 }

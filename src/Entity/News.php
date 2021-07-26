@@ -84,6 +84,7 @@ class News
         $this->authors = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updateAt = new \DateTime();
+        $this->durationOfPublication=7;
 
     }
 
@@ -250,6 +251,22 @@ class News
      * @ORM\Column(type="integer", nullable=true)
      */
     private $durationOfPublication;
+
+    /**
+     * @return mixed
+     */
+    public function getDurationOfPublication()
+    {
+        return $this->durationOfPublication;
+    }
+
+    /**
+     * @param mixed $durationOfPublication
+     */
+    public function setDurationOfPublication($durationOfPublication): void
+    {
+        $this->durationOfPublication = $durationOfPublication;
+    }
 
     /**
      * @return mixed

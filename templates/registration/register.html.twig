@@ -18,33 +18,40 @@
                                 {% endfor %}
                             </div>
                             {{ form_start(registrationForm) }}
-                                <div class="form-group">
-                                    {{ form_row(registrationForm.username) }}
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-md-6"> {{ form_row(registrationForm.firstname) }}</div>
-                                    <div class="col-md-6">{{ form_row(registrationForm.lastname) }}</div>
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(registrationForm.email) }}
-                                </div>
-                                <div class="form-group">
-                                    {{ form_row(registrationForm.plainPassword)}}
-                                </div>
+                           {#<div class="form-group">
+                                {{ form_row(registrationForm.username) }}
+                            </div>
+                           #}
+                            <div class="form-row">
+                                <div class="col-md-6"> {{ form_row(registrationForm.firstname) }}</div>
+                                <div class="col-md-6">{{ form_row(registrationForm.lastname) }}</div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.email) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.plainPassword)}}
+                            </div>
 
-                                <div class="form-group">
-                                    {{ form_row(registrationForm.partners)}}
-                                 </div>
-                                <div class="login_footer form-group">
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            {{ form_row(registrationForm.studylevel) }}
-                                        </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.phone)}}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.fieldOfResearch)}}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(registrationForm.partners)}}
+                            </div>
+                            <div class="login_footer form-group">
+                                <div class="chek-form">
+                                    <div class="custome-checkbox">
+                                        {{ form_row(registrationForm.studylevel) }}
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-fill-out btn-block" name="register">Inscrire</button>
-                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-fill-out btn-block" name="register">Inscrire</button>
+                            </div>
                             {{ form_end(registrationForm) }}
                             <div class="different_login">
 
@@ -58,11 +65,4 @@
         </div>
     </div>
 
-{% endblock %}
-{% block javascripts %}
-<script>
-    $(document).ready(function(){
-        $('.js-partners-multiple').select2();
-    });
-</script>
 {% endblock %}
