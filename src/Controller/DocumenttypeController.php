@@ -15,6 +15,7 @@ use App\Form\SearchType;
 use App\Repository\CategoryDonneesRepository;
 use App\Repository\DocumenttypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -59,7 +60,7 @@ class DocumenttypeController extends AbstractController
     /**
      * @Route ("/showCompteRendu", name= "show_compteRendu")
      */
-    public function showCompteRendu(Request $request):Response
+    public function showCompteRendu(Request $request, PaginatorInterface $paginator):Response
     {
         //die('toto');
         $entityManager = $this->getDoctrine()->getManager();
@@ -90,7 +91,11 @@ class DocumenttypeController extends AbstractController
 
         $entityManager->flush();
 
-
+        $documents = $paginator->paginate(
+            $documents, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
         //die(var_dump(count($documents)));
         return $this->render('documenttype/show_compte_rendus.html.twig', [
             'documents' => $documents,
@@ -98,11 +103,11 @@ class DocumenttypeController extends AbstractController
 
         ]);
     }
-
+/*
     /**
      * @Route ("/showPrototype", name= "show_prototype")
      */
-    public function showPrototype(Request $request):Response
+   /* public function showPrototype(Request $request):Response
     {
         //die('toto');
         //die('toto');
@@ -139,11 +144,57 @@ class DocumenttypeController extends AbstractController
             'form'=>$form->createView()
 
         ]);
+    }*/
+    /**
+     * @Route ("/showPrototype", name= "show_prototype")
+     */
+    public function showPrototype(Request $request, PaginatorInterface $paginator):Response
+    {
+        //die('toto');
+        //die('toto');
+        $entityManager = $this->getDoctrine()->getManager();
+        $documentsTmp = $entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Prototypes');
+        $documents = array();
+        //pour passer un formulaire à twig
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        //recuperation de la requete envoyé par url
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $documentsTmp = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search, 'Prototypes');
+        }
+        foreach ( $documentsTmp  as $document) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($document->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $document->getDurationOfPublication()) {
+                // die(var_dump($document));
+                $document->setIsActive(false);
+
+            } else {
+                $documents[] = $document;
+            }
+        }
+
+        $entityManager->flush();
+        $documents = $paginator->paginate(
+            $documents, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
+
+        return $this->render('documenttype/show_prototypes.html.twig', [
+            'documents' => $documents,
+            'form'=>$form->createView()
+
+        ]);
     }
     /**
      * @Route ("/showRapport", name= "show_rapport")
      */
-    public function showRapport(Request $request):Response
+    public function showRapport(Request $request, PaginatorInterface $paginator):Response
     {
         //die('toto');
         $entityManager = $this->getDoctrine()->getManager();
@@ -173,6 +224,11 @@ class DocumenttypeController extends AbstractController
         }
 
         $entityManager->flush();
+        $documents = $paginator->paginate(
+            $documents, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
 
         return $this->render('documenttype/show_rapports.html.twig', [
             'documents' => $documents,
@@ -221,7 +277,7 @@ class DocumenttypeController extends AbstractController
     /**
      * @Route ("/showArticle", name= "show_article")
      */
-    public function showArticle(Request $request):Response
+    public function showArticle(Request $request, PaginatorInterface $paginator):Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         $documentsTmp = $entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Articles');
@@ -250,6 +306,11 @@ class DocumenttypeController extends AbstractController
         }
 
         $entityManager->flush();
+        $documents = $paginator->paginate(
+            $documents, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
 
 
         //die(var_dump(count($documents)));

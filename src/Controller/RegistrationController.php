@@ -2,9 +2,14 @@
 
 namespace App\Controller;
 
+use App\Classe\SearchMembre;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\SearchMembreType;
 use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\OrderBy;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +22,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
+    private $entityManager;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, EntityManagerInterface $entityManager)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -83,5 +90,41 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('home');
+    }
+
+    // Recuperation de la liste des membres
+
+    /**
+     * @Route("/membre", name="show_membre")
+     */
+    public function showMembre(Request $request,  PaginatorInterface $paginator):Response
+    {
+        $users = $this->entityManager->getRepository(User::class)->findBy([
+            'isValide' => true
+        ]);
+
+        $search = new SearchMembre();
+        $form = $this->createForm(SearchMembreType::class, $search);
+
+        //recuperation de la requete envoyé par url
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
+            $users = $this->entityManager->getRepository(User::class)->findwithSearchMembre($search);
+        }else{
+            //recuperation de tous les produits en passant par le repository de la classe en question
+            $users= $this->entityManager->getRepository(User::class)->findBy([
+                'isValide' => true
+            ]);
+        }
+        $users = $paginator->paginate(
+            $users, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            4/*limit per page*/
+        );
+        return $this->render('show/indexMembre.html.twig', [
+            'users' => $users,
+            'form'=>$form->createView()
+
+        ]);
     }
 }

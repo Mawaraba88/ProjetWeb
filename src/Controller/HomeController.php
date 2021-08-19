@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\CategoryDonnees;
 use App\Entity\CategoryNews;
 use App\Entity\Documenttype;
+use App\Entity\Header;
 use App\Entity\News;
 use App\Repository\CategoryDonneesRepository;
 
@@ -13,6 +14,7 @@ use App\Repository\CategoryNewsRepository;
 use App\Repository\DocumenttypeRepository;
 use App\Repository\NewsRepository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,16 +27,18 @@ class HomeController extends AbstractController
     private $repoCategoryDoc;
     private $repoCategoryNews;
     private $repoNewsType;
+    private $entityManager;
 
 
     public function __construct(DocumenttypeRepository $repoDocumentType,
                                 CategoryDonneesRepository  $repoCategoryDoc,
                                 CategoryNewsRepository $repoCategoryNews,
-                                NewsRepository $repoNewsType){
+                                NewsRepository $repoNewsType, EntityManagerInterface $entityManager){
         $this->repoDocumentType = $repoDocumentType;
         $this->repoCategoryDoc = $repoCategoryDoc;
         $this->repoCategoryNews = $repoCategoryNews;
         $this->repoNewsType = $repoNewsType;
+        $this->entityManager = $entityManager;
 
     }
 
@@ -52,20 +56,30 @@ class HomeController extends AbstractController
         //$documents = $this->repoDocumentType->findAll();
         /*$documents = $this->repoDocumentType->findByIsActive(1);
         $news = $this->repoNewsType->findByIsActive(1);*/
-        $documents = $this->repoDocumentType->findBy([
+       /* $documents = $this->repoDocumentType->findBy([
+            'isActive'=> true ],
+
+            ['createdAt' => 'desc']
+           );*/
+        $documents = $this->entityManager->getRepository(Documenttype::class)->findwithDocuments('Articles');
+       /* $news = $this->repoNewsType->findBy([
             'isActive'=> true],
             ['createdAt' => 'desc'
-        ]);
-        $news = $this->repoNewsType->findBy([
-            'isActive'=> true],
-            ['createdAt' => 'desc'
-            ]);
+            ]);*/
+        $news = $this->entityManager->getRepository(News::class)->findwithNews('Nouvelles');
+
+        $events = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Evénements');
+        $seminars = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Séminaires');
+        $headers = $this->entityManager->getRepository(Header::class)->findAll();
 
         return $this->render('home/index.html.twig', [
             'documents' => $documents,
             'categories' => $categories,
             'categoryNews' => $categoryNews,
-            'news' => $news
+            'news' => $news,
+            'events' => $events,
+            'seminars' => $seminars,
+            'headers' =>$headers
         ]);
     }
 

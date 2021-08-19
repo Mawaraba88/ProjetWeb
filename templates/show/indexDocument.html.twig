@@ -4,7 +4,7 @@
     <h1 class="title p-1">{{ document.title }}</h1>
 
     <div class="img-fluid">
-        <img width="100%" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"/>
+        <img   src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}"  alt="{{ document.title }}"/>
     </div>
 
    <div class="content">

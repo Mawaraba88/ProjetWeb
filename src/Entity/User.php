@@ -7,12 +7,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ *@Vich\Uploadable
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -79,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $place;
 
+
     /**
      * @ORM\ManyToMany(targetEntity=Documenttype::class, mappedBy="author")
      */
@@ -99,15 +105,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $newstypes;
 
+
+
     /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
-/*
+
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
-    //private $isVerified = false;
+    private $picture;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $webSite;
+
+
 
 
 
@@ -116,6 +132,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->documenttypes = new ArrayCollection();
         $this->partners = new ArrayCollection();
         $this->newstypes = new ArrayCollection();
+        $this->updateAt = new \DateTime();
+
+
 
     }
 
@@ -397,4 +416,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getWebSite(): ?string
+    {
+        return $this->webSite;
+    }
+
+    public function setWebSite(?string $webSite): self
+    {
+        $this->webSite = $webSite;
+
+        return $this;
+    }
+
+    // ... other fields
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="images_directory", fileNameProperty="picture")
+     *
+     * @var File|null
+     * @Assert\Image(maxSize="8M")
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+
+
+
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->setUpdateAt(new \DateTimeImmutable);
+        }
+
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+
 }

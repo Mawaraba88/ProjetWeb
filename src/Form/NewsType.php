@@ -52,7 +52,7 @@ class NewsType extends AbstractType
 
             ->add('durationOfPublication', NumberType::class)
 
-/*
+
 
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
@@ -61,7 +61,7 @@ class NewsType extends AbstractType
 
 
             ])
-
+/*
             ->add('brochureFile', VichFileType::class, [
                 'required' => false,
                 'allow_delete' => true,

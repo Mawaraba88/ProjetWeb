@@ -32,12 +32,12 @@ class News
      * @ORM\Column(type="text", nullable=true)
      */
     private $resume;
-/*
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
-    //private $picture;
+    private $picture;
 
     /**
      * @ORM\Column(type="datetime")
@@ -119,7 +119,7 @@ class News
 
         return $this;
     }
-/*
+
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -131,7 +131,7 @@ class News
 
         return $this;
     }
-*/
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -284,7 +284,7 @@ class News
         $this->updateAt = $updateAt;
     }
 
-/*
+
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -294,8 +294,8 @@ class News
      * @var File|null
      * @Assert\Image(maxSize="8M")
      */
-  //  private $imageFile;
-    /*
+    private $imageFile;
+
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -306,7 +306,7 @@ class News
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-  /*  public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -321,34 +321,7 @@ class News
     {
         return $this->imageFile;
     }
-/*
-    /**
-     * @Vich\UploadableField(mapping="images_directory", fileNameProperty="brochureFilename")
-     * @var File
-     */
-   // private $brochureFile;
 
-   /* /**
-     * @return File
-     */
-  /*  public function getBrochureFile(): ?File
-    {
-        return $this->brochureFile;
-    }
-
-    /**
-     * @param $brochureFile
-     */
-  /*  public function setBrochureFile(?File $brochureFile): void
-    {
-        $this->brochureFile = $brochureFile;
-        if (null !== $brochureFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->setUpdateAt(new \DateTimeImmutable);
-        }
-    }
-*/
 
 
 

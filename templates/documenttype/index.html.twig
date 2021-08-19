@@ -21,7 +21,7 @@
                 {% for document in documents %}
                     <div class="card col-md-4" style="width: 18rem;">
 
-                        <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}">
+                        <img class="img-fluid"  src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}"  alt="{{ document.title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ document.title }}</h5>
                             <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>

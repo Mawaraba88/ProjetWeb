@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Classe\SearchMembre;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -64,4 +65,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+
+    /**
+     * requite qui permet de recupérer les produits en fonctions de la recherche de l'utilisateur
+     * @return User[]
+     */
+    public function findwithSearchMembre(SearchMembre $search)
+    {
+        //creation d'une requete
+        $query = $this
+            ->createQueryBuilder('u')
+            ->select('u');
+
+        if(!empty($search->string)){
+            $query = $query
+                ->andWhere('u.firstname Like :string or u.lastname Like :string')
+
+                ->setParameter('string', "%{$search->string}%");
+        }
+
+        return $query->getQuery()->getResult();
+    }
 }

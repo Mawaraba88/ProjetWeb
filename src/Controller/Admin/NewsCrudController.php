@@ -29,12 +29,12 @@ class NewsCrudController extends AbstractCrudController
             TextEditorField::new('resume'),
             DateField::new('startCreatedAt'),
             DateField::new('endCreatedAt'),
-     /*       ImageField::new('picture')
+           ImageField::new('picture')
                 ->setBasePath('uploads/')
                 ->setUploadDir('public/uploads')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false),
-            ImageField::new('brochureFilename')
+          /*  ImageField::new('brochureFilename')
                 ->setBasePath('brochures/')
                 ->setUploadDir('public/uploads/brochures')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')

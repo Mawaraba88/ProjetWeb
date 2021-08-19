@@ -1,28 +1,4 @@
-{# <div class="card">
-    <img src="{{ asset('uploads/' ~ documenttype.picture) }}" alt="picture" class="card-img-top">
-    <div class="card-body">
-   <h5 class="card-title" style="font-weight: bold; font-size:1.5rem;">{{ documenttype.title }}</h5>
-    </div>
 
-    <p class="text text-muted">{{ documenttype.resume }}</p>
-    <div class="card-title" >
-        Auteur(s) :
-        {% set authors = documenttype.author %}
-        {% set chaine = "" %}
-        {% for author in authors %}
-            {% set chaine = chaine ~ author.fullname %}
-            {% set chaine = chaine ~ ', ' %}
-        {% endfor %}
-        <p>{{ chaine }}</p>
-    </div>
-    <div class="card-title">
-        Publié : {{ documenttype.createdAt ? documenttype.createdAt|date('Y-m-d') : '' }}
-    </div>
-    <div class="card-title">
-        <a href="{{ asset('uploads/' ~ documenttype.brochureFilename) }}" >Télécharger l'article</a>
-    </div>
-</div>
-#}
 <div class="card mb-3" >
     <div class="row g-0">
         <div class="col-md-3">

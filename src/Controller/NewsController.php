@@ -83,6 +83,8 @@ class NewsController extends AbstractController
             ]);
         }
 
+
+
     /**
      * @Route ("/showEvenements", name= "show_evenement")
      */

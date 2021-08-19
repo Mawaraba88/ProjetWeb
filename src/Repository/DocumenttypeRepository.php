@@ -62,6 +62,18 @@ class DocumenttypeRepository extends ServiceEntityRepository
         return $tab;
     }
 
+    public function findwithDocuments($criteria)
+    {
+        $query = $this->_em->createQuery('SELECT d FROM App\Entity\Documenttype d 
+        JOIN d.categorydonnees c WHERE c.name = :criteria AND d.isActive=1
+        ORDER BY d.createdAt DESC');
+        $query->setParameter('criteria', $criteria);
+        $query->setMaxResults(4);
+        //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+        $tab = $query->getResult();
+        return $tab;
+    }
+
     public function findwithSearch(Search $search, $criteria) {
         $searchString = empty($search->string) ? '' : $search->string;
         //die(var_dump(($search)));

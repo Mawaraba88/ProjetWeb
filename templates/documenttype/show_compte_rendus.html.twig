@@ -2,7 +2,7 @@
 
 {% block title %}Articles{% endblock %}
 {% block body %}
-    <h1>Les Compte-rendus</h1>
+    <h1>Les Compte-rendus ({{ documents.getTotalItemCount }})</h1>
 
     <div class="container">
         <div class="row">
@@ -16,6 +16,11 @@
                     {% for documenttype in documents  %}
                         {% include 'documenttype/_document.html.twig' %}
                     {% endfor %}
+                    {# display navigation #}
+                    <div class="d-flex justify-content-center">
+                        {% do documents.setPageRange(2) %}
+                        {{ knp_pagination_render(documents, 'pagination/pagination.html.twig') }}
+                    </div>
                 </div>
             </div>
         </div>

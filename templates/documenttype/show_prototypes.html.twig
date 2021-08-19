@@ -21,6 +21,10 @@
                     {% for documenttype in documents  %}
                         {% include 'documenttype/_document.html.twig' %}
                     {% endfor %}
+                    <div class="d-flex justify-content-center">
+                        {% do documents.setPageRange(2) %}
+                        {{ knp_pagination_render(documents, 'pagination/pagination.html.twig') }}
+                    </div>
                 </div>
             </div>
         </div>

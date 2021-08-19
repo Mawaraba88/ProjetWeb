@@ -33,7 +33,29 @@ class NewsRepository extends ServiceEntityRepository
         return $tab;
     }
 
+    public function findwithNews($criteria)
+    {
+        $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n JOIN n.categorynews c WHERE c.name = :criteria AND n.isActive=1
+        ORDER BY n.createdAt DESC ');
+        $query->setParameter('criteria', $criteria);
+        $query->setMaxResults(4);
+        //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+        $tab = $query->getResult();
 
+        return $tab;
+    }
+
+    public function findwithEventsAndSeminars($criteria)
+    {
+        $query = $this->_em->createQuery('SELECT n FROM App\Entity\News n JOIN n.categorynews c WHERE c.name = :criteria AND n.isActive=1
+        ORDER BY n.createdAt DESC ');
+        $query->setParameter('criteria', $criteria);
+        $query->setMaxResults(1);
+        //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
+        $tab = $query->getResult();
+
+        return $tab;
+    }
 
     public function findwithSearchNews(SearchNews $search, $criteria) {
         $searchString = empty($search->string) ? '' : $search->string;
