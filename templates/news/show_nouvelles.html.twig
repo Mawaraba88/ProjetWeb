@@ -15,23 +15,29 @@
 
     <div class="container mt-4">
 <div class="row">
+    {% if news | length > 0 %}
+    <div><h3>Résultat de votre recherche</h3></div>
     {% for new in news %}
-    <div class="col-md-4">
-        <h5 class="mt-0">Titre: {{ new.title }}</h5>
-        <p >Résumé : {{ new.resume }}</p>
-
-        <p>{{ new.startCreatedAt ? new.startCreatedAt|date('Y-m-d') : '' }} - {{ new.endCreatedAt ? new.endCreatedAt|date('Y-m-d') : '' }} </p>
-
-
-        </div >
+        {% include 'news/_doc_new.html.twig' %}
        {#  <div class="img-fluid">
             <img width="80px" src="/uploads/{{ new.picture }}" alt="{{ new.title }}"/>
         </div>
        #}
+        >
 
     {% endfor %}
+    <div class="d-flex justify-content-center">
+        {% do news.setPageRange(2) %}
+        {{ knp_pagination_render(news, 'pagination/pagination.html.twig') }}
+    </div>
+
+    <a href="{{ path('show_nouvelle') }}">Revenir sur la liste des nouvelles</a>
 </div>
     </div>
+        {% else %}
+            <h1>Aucun résultat pour votre recherche</h1>
+            <a href="{{ path('show_nouvelle') }}">Revenir sur la liste des nouvelles</a>
+        {% endif %}
     </div>
 
     <!-- START THE FEATURETTES -->

@@ -1,47 +1,37 @@
 {% extends "base.html.twig" %}
 {% block body %}
-    {#<div class="container">
-        <h1 class="title p-1">Liste des membres</h1>
-
-        <div class="img-fluid">
-            <img   src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}"  alt="{{ document.title }}"/>
-        </div>
-
-        <div class="content">
-            <h2 class="title">{{ document.title }}</h2>
-            <p class="content text-justify">
-                {{ document.resume | raw}}
-            </p>
-            <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
-            Auteur(s) :
-            {% set authors = document.author %}
-            {% set chaine = "" %}
-            {% for author in authors %}
-                {% set chaine = chaine ~ author.getFullName %}
-                {% set chaine = chaine ~ ', ' %}
-            {% endfor %}
-            {{ chaine }}
-            <p>
-                {% if document.brochureFilename %}
-            <div class="img-fluid">
-                <a href="{{ asset('uploads/' ~ document.brochureFilename) }}">Télécharger le document (PDF)</a>
-
-            </div>
-            {% endif %}
-            </p>
-
-        </div>
-
-
-
-    </div>#}
-
 
     <div class="container">
         <div class="row bootstrap snippets bootdeys">
             <div class="col-md-9 col-sm-7">
                 <h2>Members</h2>
             </div>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+            <div class="container">
+                <br/>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        {{ form_start(form, {attr: {class:'filter'}}) }}
+                            <div class="card-body row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fas fa-search h4 text-body"></i>
+                                </div>
+                                <!--end of col-->
+                                <div class="col">
+                                    {{ form_row(form.string) }}
+                                </div>
+                                <!--end of col-->
+                                <div class="col-auto">
+                                    <button class="btn btn-lg btn-success" type="submit">Rechercher</button>
+                                </div>
+                                <!--end of col-->
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <!--end of col-->
+                </div>
+            </div>
+            {#
             <div class="col-md-3 col-sm-5">
                 {{ form_start(form, {attr: {class:'filter'}}) }}
 
@@ -52,7 +42,10 @@
 
                 {{ form_end(form) }}
             </div>
+            #}
         </div>
+        {% if users |length> 0 %}
+        <h1>Résultat de la recherche</h1>
         {% for user in users %}
         <div class="member-entry">
 
@@ -105,7 +98,11 @@
             {% do users.setPageRange(4) %}
             {{ knp_pagination_render(users, 'pagination/pagination.html.twig') }}
         </div>
-
+            <a href="{{ path('show_membre') }}">Revenir sur la liste complète </a>
+        {% else %}
+        <h1>Aucun résultat pour votre recherche</h1>
+            <a href="{{ path('show_membre') }}">Revenir sur la liste des complète</a>
+        {% endif %}
     </div>
 
 {% endblock %}

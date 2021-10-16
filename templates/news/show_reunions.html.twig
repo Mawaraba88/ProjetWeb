@@ -13,19 +13,24 @@
 
         <div class="container mt-4">
             <div class="row">
-                {% for reunion in reunions %}
-                    <div class="col-md-4">
-                        <h5 class="mt-0">Titre: {{reunion.title }}</h5>
-                        <p >Résumé : {{ reunion.resume }}</p>
-
-                        <p>{{ reunion.startCreatedAt ? reunion.startCreatedAt|date('Y-m-d') : '' }} - {{ reunion.endCreatedAt ? reunion.endCreatedAt|date('Y-m-d') : '' }} </p>
-
-
-                    </div >
+                {% if news | length > 0 %}
+                <div><h3>Résultat de votre recherche</h3></div>
+                {% for new in news %}
+                    {% include 'news/_doc_new.html.twig' %}
 
                 {% endfor %}
+                <div class="d-flex justify-content-center">
+                    {% do news.setPageRange(2) %}
+                    {{ knp_pagination_render(news, 'pagination/pagination.html.twig') }}
+                </div>
+
+                <a href="{{ path('show_reunion') }}">Revenir sur la liste des reunions</a>
             </div>
         </div>
+        {% else %}
+            <h1>Aucun résultat pour votre recherche</h1>
+            <a href="{{ path('show_reunion') }}">Revenir sur la liste des reunions</a>
+        {% endif %}
     </div>
 
     <!-- START THE FEATURETTES -->

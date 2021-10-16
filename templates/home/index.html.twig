@@ -7,17 +7,77 @@
 {% block body %}
     <hr class="featurette-divider">
 
-    <h3>Les derniers articles</h3>
 
-    <div class="row">
-        {% for document in documents %}
-            <div class="col-md-3">
-                <div class="new-item text-center">
+   <div class="row">
+       <div class="col-sm-8">
+           <h1 >A propos</h1>
+           <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu neque ac diam tempus sollicitudin non ut diam. Aenean condimentum, sapien hendrerit faucibus malesuada, est ex cursus lectus, ut lacinia massa nulla at lacus. Vestibulum facilisis pellentesque libero, eu semper orci porttitor eu. Aenean tristique diam eget tortor vehicula vulputate. Ut congue diam a metus condimentum, ac cursus tortor dapibus. Praesent lobortis, dui id facilisis laoreet, tortor tellus interdum sem, ac egestas arcu dolor ac justo. Fusce vel sodales enim. Pellentesque ac ligula tincidunt, pellentesque tellus in, rhoncus urna. Nulla et magna ex. Nulla facilisi. Aenean dignissim dui nulla, a pellentesque quam dignissim ac. Donec ullamcorper, diam id laoreet volutpat, sapien orci pretium risus, a tincidunt urna odio ut magna. Aliquam at posuere ipsum, ut pharetra nisl.
 
-                   {#  <a href="{{ path('showDocument', {'id':document.id}) }}"><img class="card-img-top" src="/uploads/{{ document.picture }} " alt="{{ document.title }}"  class="img-fluid"/></a> <a href="{{ path('showDocument', {'id':document.id}) }}"><img class="card-img-top" src="/uploads/{{ document.picture | imagine_filter('miniature') }} " alt="{{ document.title }}"  class="img-fluid"/></a> <a href="{{ path('showDocument', {'id':document.id}) }}"><img class="card-img-top" src="/uploads/{{ document.picture | imagine_filter('miniature') }} " alt="{{ document.title }}"  class="img-fluid"/></a>#}
-                    <a href="{{ path('showDocument', {'id':document.id}) }}"><img class="card-img-top" src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}" alt="{{ document.title }}" /></a>
+               Proin quis libero a nunc blandit gravida id eu sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sem libero, fermentum id luctus ac, aliquet quis lorem. In volutpat magna eget egestas tincidunt. Donec odio elit, tincidunt et condimentum ac, ornare ac arcu. Fusce fermentum quam eget orci pharetra, convallis condimentum velit lobortis. Vestibulum a metus semper, luctus diam et, viverra magna. Nunc nec varius quam. Praesent sodales tincidunt consectetur.
+
+               Cras vitae mattis augue. Sed vel nulla in enim tempus suscipit eu in magna. Phasellus mattis mi at tempus iaculis. Phasellus vitae orci iaculis, suscipit dui ut, ultrices sem. Donec justo turpis, blandit ut consequat id, porttitor tincidunt dolor. Sed tincidunt rutrum ex ac posuere. Vestibulum et diam pharetra, iaculis velit non, congue dolor. Ut aliquet sed lacus consectetur fringilla. Ut convallis libero sed lacus tempor, eu blandit felis hendrerit. In vestibulum tincidunt rutrum.
+
+               Fusce purus metus, pulvinar nec leo nec, feugiat convallis urna. Maecenas non nunc eu metus consectetur dictum a a nibh. Duis in erat elit. Etiam vel augue eget tortor finibus facilisis. Cras eget diam vel magna fermentum consectetur vel non ex. Aenean felis enim, ultrices eu lorem sed, scelerisque venenatis magna. Praesent ultrices enim in pellentesque tempor. Vestibulum ut lorem ultricies, bibendum velit a, volutpat libero.
+
+               Nunc accumsan magna id porta consectetur. Donec egestas dignissim velit ac varius. Cras a leo ut enim ultrices efficitur nec ullamcorper lorem. Suspendisse potenti. Nullam molestie velit non mauris iaculis, euismod accumsan ante tristique. Phasellus tincidunt, tellus in condimentum ullamcorper,
+               ex magna placerat lorem, quis consequat dolor dolor ac dui. Aliquam viverra est eget odio ornare,
+               nec elementum urna interdum. Ut scelerisque lorem et lacus finibus, vitae euismod neque vehicula.
+               Cras tincidunt justo nec urna lobortis accumsan ac nec erat.
+               Quisque gravida nulla nec lectus tincidunt, ut imperdiet nibh gravida.
+               Aliquam mollis ex vulputate, mollis nulla quis, molestie nulla.</p>
+       </div>
+       <div class="col-sm-4">
+
+           <h3 style="font-style: italic">Les dernières nouvelles</h3>
+           <div class="container bootstrap snippets bootdey">
+               {% for new in news %}
+               <div class="row">
+
+                   <div class="widget single-news">
+                       <div class="image">
+                           <img src="{{ asset('/uploads/news-fond.jpg')}}"  alt="{{ new.title }}" class="img-responsive">
+                           <span class="gradient"></span>
+                       </div>
+                       <div class="details">
+                           <div class="category"><a href="">News</a></div>
+                           <h3><a href="{{ path('showNews', {'id':new.id}) }}">{{ new.title }}</a></h3>
+                           <time>Today, 18 August</time>
+                       </div>
+                   </div>
+               </div>
+               {% endfor %}
+
+               <div class="row">
+                   <span><a href="{{ path('show_nouvelle') }}" style="font-style: italic" >Voir toutes les nouvelles</a></span>
+               </div>
+
+           </div>
+       </div>
+
+
+
+    <hr class="featurette-divider">
+
+
+
+    <h3 style="font-style: italic">Les derniers articles</h3>
+    <div class="container bootstrap snippets bootdey">
+        <div class="row">
+            {% for document in documents %}
+        <div class="col-sm-3">
+            <div class="widget single-news">
+                <div class="image">
+                    <a href="{{ path('showDocument', {'id':document.id}) }}">
+                        <img src="{{ asset('/uploads/font.jpg')}}"  alt="{{ document.title }}" class="img-responsive">
+                    </a>
+
+
+                    <span class="gradient"></span>
+                </div>
+                <div class="details">
+                    <div class="category"><a href="">Articles</a></div>
                     <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title">{{ document.title }}</h5></a>
-                    <span class="new-subtitle">Publié le {{ document.createdAt | date("d/m/Y")}}</span>
+
                     <span class="new-date">
                         Auteur(s) :
                               {% set authors = document.author %}
@@ -28,24 +88,106 @@
                         {% endfor %}
                         {{ chaine }}
                     </span>
-
+                    <time>Publié le {{ document.createdAt | date("d/m/Y")}}</time>
                 </div>
             </div>
+        </div>
         {% endfor %}
 
-    </div><!-- /.row -->
-    <div>
-        <span><a href="{{ path('show_article') }}" >Liste des articles</a></span>
+            <div>
+                <span><a href="{{ path('show_article') }}" style="font-style: italic" >Voir tous les articles</a></span>
+            </div>
+        </div>
+
     </div>
+
     <hr class="featurette-divider">
 
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title" style="font-style: italic">Evénements à venir...</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        {% for event in events %}
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-primary">
+                                    <span class="widget-49-date-day">
+                                           {{ event.startCreatedAt | date("d/m") }}
+
+                                       </span>
+
+                                </div>
+                                <div class="widget-49-meeting-info">
+
+                                    <span class="widget-49-pro-title">  <a href="{{ path('showNews', {'id':event.id}) }}">{{ event.title }}</a></span>
+                                </div>
+
+                            </div>
+
+                            <div  class="widget-49-meeting-points">
+                                <span >{{ event.resume }}</span>
+                            </div>
+                            {% endfor %}
+
+                            <div class="widget-49-meeting-action">
+                                <a href="{{ path('show_evenement') }}" class="btn btn-sm btn-flash-border-primary"style="font-style: italic">Voir tous les événements </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+                    <div class="col-lg-4">
+                <div class="card card-margin">
+                    <div class="card-header no-border">
+                        <h5 class="card-title" style="font-style: italic">Séminaires à venir...</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        {% for seminar in seminars %}
+                        <div class="widget-49">
+                            <div class="widget-49-title-wrapper">
+                                <div class="widget-49-date-warning">
+                                    <span class="widget-49-date-day"> {{  seminar.startCreatedAt | date("d/m") }}</span>
+
+                                </div>
+                                <div class="widget-49-meeting-info">
+                                    <span class="widget-49-pro-title">   <a href="{{ path('showNews', {'id':seminar.id}) }}">{{ seminar.title }}</a></span>
+
+                                </div>
+                            </div>
+                            <div  class="widget-49-meeting-points">
+                                <span >{{  seminar.resume }}</span>
+                            </div>
+                            {% endfor %}
+
+                            <div class="widget-49-meeting-action">
+                                <a href="{{ path('show_seminaire') }}" class="btn btn-sm btn-flash-border-primary" style="font-style: italic">Voir tous les séminaires </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+
+{#
     <h3>Les dernières nouvelles</h3>
 
     <div class="row">
         {% for new in news %}
             <div class="col-md-3">
                 <div class="new-item text-center">
-                   {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#}
+                   {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#
                     <a href="{{ path('showNews', {'id':new.id}) }}" ><h5 class="card-title">{{ new.title }}</h5></a>
                     <span class="new-subtitle">Publié le {{ new.createdAt | date("d/m/Y")}}</span>
                     {# <span class="new-date">
@@ -57,16 +199,15 @@
                             {% endif %}
                     </span>
                     #}
-                    {# <span> <a href="{{ path('showNews', {'id':new.id}) }}" >En savoir plus</a></span> #}
+                    {# <span> <a href="{{ path('showNews', {'id':new.id}) }}" >En savoir plus</a></span> #
 
                 </div>
 
             </div>
         {% endfor %}
-        <div>
-            <span><a href="{{ path('show_nouvelle') }}" >Voir toutes les nouvelles</a></span>
-        </div>
+
     </div><!-- /.row -->
+
 
     <hr class="featurette-divider">
     <div class="row">
@@ -79,7 +220,7 @@
                           <!--rendre l'image cliquable et redirection vers le detail du produit via son slug-->
                           {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#}
 
-                          {#  <span class="new-subtitle">Publié le {{ event.createdAt | date("d/m/Y")}}</span>#}
+                          {#  <span class="new-subtitle">Publié le {{ event.createdAt | date("d/m/Y")}}</span>#
                           <span class="new-date">
 
 
@@ -89,7 +230,7 @@
                             {% endif %}
 
                     </span>
-                          {#    <span> <a href="{{ path('showNews', {'id':event.id}) }}" class="btn btn-primary">En savoir plus</a></span> #}
+                          {#    <span> <a href="{{ path('showNews', {'id':event.id}) }}" class="btn btn-primary">En savoir plus</a></span> #
                           <a href="{{ path('showNews', {'id':event.id}) }}"><h5 class="card-title">{{ event.title }}</h5></a>
                       </div>
 
@@ -111,7 +252,7 @@
                            <!--rendre l'image cliquable et redirection vers le detail du produit via son slug-->
                            {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#}
 
-                          {#  <span class="new-subtitle">Publié le {{ seminar.createdAt | date("d/m/Y")}}</span>#}
+                          {#  <span class="new-subtitle">Publié le {{ seminar.createdAt | date("d/m/Y")}}</span>#
                            <span class="new-date">
 
 
@@ -120,7 +261,7 @@
                                   Au {{ seminar.endCreatedAt | date("d/m/Y") }} </p>
                             {% endif %}
                     </span>
-                          {#  <span> <a href="{{ path('showNews', {'id':seminar.id}) }}" class="btn btn-primary">En savoir plus</a></span> #}
+                          {#  <span> <a href="{{ path('showNews', {'id':seminar.id}) }}" class="btn btn-primary">En savoir plus</a></span> #
                            <a href="{{ path('showNews', {'id':seminar.id}) }}"><h5 class="card-title">{{ seminar.title }}</h5></a>
                        </div>
 

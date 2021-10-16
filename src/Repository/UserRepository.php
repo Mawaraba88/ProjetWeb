@@ -67,7 +67,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     */
 
     /**
-     * requite qui permet de recupérer les produits en fonctions de la recherche de l'utilisateur
+     * requête qui permet de recupérer les membres en fonctions de la recherche de l'utilisateur
      * @return User[]
      */
     public function findwithSearchMembre(SearchMembre $search)
@@ -82,6 +82,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->andWhere('u.firstname Like :string or u.lastname Like :string')
 
                 ->setParameter('string', "%{$search->string}%");
+
         }
 
         return $query->getQuery()->getResult();

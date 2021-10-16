@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $documenttypes;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Partners::class, mappedBy="organisateurs")
+     * @ORM\ManyToMany(targetEntity=Partners::class, inversedBy="organisateurs")
      */
     private $partners;
 
@@ -351,7 +351,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->partners->contains($partner)) {
             $this->partners[] = $partner;
-            $partner->addOrganisateur($this);
+
         }
 
         return $this;
@@ -359,9 +359,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removePartner(Partners $partner): self
     {
-        if ($this->partners->removeElement($partner)) {
-            $partner->removeOrganisateur($this);
-        }
+        $this->partners->removeElement($partner);
 
         return $this;
     }

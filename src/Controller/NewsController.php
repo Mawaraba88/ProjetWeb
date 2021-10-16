@@ -12,6 +12,7 @@ use App\Form\NewsType;
 use App\Form\SearchNewsType;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,7 @@ class NewsController extends AbstractController
     /**
      * @Route ("/showNouvelles", name= "show_nouvelle")
      */
-    public function showNews(Request $request):Response
+    public function showNews(Request $request, PaginatorInterface $paginator):Response
     {
 
 
@@ -75,6 +76,11 @@ class NewsController extends AbstractController
         }
 
         $entityManager->flush();
+        $news = $paginator->paginate(
+            $news, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
 
             return $this->render('news/show_nouvelles.html.twig', [
                 'news' => $news,
@@ -88,7 +94,7 @@ class NewsController extends AbstractController
     /**
      * @Route ("/showEvenements", name= "show_evenement")
      */
-    public function showEven(Request $request):Response
+    public function showEven(Request $request, PaginatorInterface $paginator):Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -117,6 +123,11 @@ class NewsController extends AbstractController
         }
 
         $entityManager->flush();
+        $news = $paginator->paginate(
+            $news, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            1/*limit per page*/
+        );
 
 
             return $this->render('news/show_evenements.html.twig', [
@@ -130,7 +141,7 @@ class NewsController extends AbstractController
     /**
      * @Route ("/showSeminaires", name= "show_seminaire")
      */
-    public function showSeminaire(Request $request):Response
+    public function showSeminaire(Request $request, PaginatorInterface $paginator):Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -159,6 +170,11 @@ class NewsController extends AbstractController
         }
 
         $entityManager->flush();
+        $news = $paginator->paginate(
+            $news, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            2/*limit per page*/
+        );
 
 
             return $this->render('news/show_seminaires.html.twig', [
@@ -172,7 +188,7 @@ class NewsController extends AbstractController
     /**
      * @Route ("/showReunions", name= "show_reunion")
      */
-    public function showReunion(Request $request):Response
+    public function showReunion(Request $request, PaginatorInterface $paginator):Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -201,9 +217,14 @@ class NewsController extends AbstractController
         }
 
         $entityManager->flush();
+        $news = $paginator->paginate(
+            $news, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            1/*limit per page*/
+        );
 
             return $this->render('news/show_reunions.html.twig', [
-                'reunions' => $news,
+                'news' => $news,
                 'form' =>$form->createView()
 
             ]);

@@ -22,13 +22,13 @@ class SearchType extends AbstractType
                 'label' =>false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Votre recherche...',
+                    'placeholder' => 'Votre recherche par mot clé',
                     'class'=>'form-control-sm'
                 ]
             ])
 
             ->add('searchDate', DateType::class, [
-                'label' =>'Par date',
+                'label' =>'Par date de création',
                 'required'=>false,
                 'widget' => 'single_text',
                 // this is actually the default format for single_text

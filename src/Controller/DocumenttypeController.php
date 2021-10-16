@@ -335,7 +335,6 @@ class DocumenttypeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if($documenttype->getCategorydonnees()->getName() == 'Articles') {
                 $new = new News();
-                $new->set($documenttype->getTitle());
                 $new->setTitle($documenttype->getTitle());
                 $new->setResume($documenttype->getResume());
                 $new->setCreatedAt($documenttype->getCreatedAt());

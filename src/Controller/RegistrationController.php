@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Classe\SearchMembre;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -52,6 +54,15 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            if($user->getIsValide())
+            {
+                //envoi d'email
+                $mail = new Mail();
+                $content = "Bonjour ".$user->getFirstname()."<br/>Ton inscription a été validée. ";
+                $mail->send($user->getEmail(), $user->getFirstname(), 'Incscription validée', $content);
+
+            }
+
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -62,7 +73,7 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
             $this->addFlash('success', 'Votre inscription est en attente de validation.');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_register');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -111,7 +122,7 @@ class RegistrationController extends AbstractController
         if($form->isSubmitted()&&$form->isValid()){
             $users = $this->entityManager->getRepository(User::class)->findwithSearchMembre($search);
         }else{
-            //recuperation de tous les produits en passant par le repository de la classe en question
+            //recuperation de tous les membres en passant par le repository de la classe en question
             $users= $this->entityManager->getRepository(User::class)->findBy([
                 'isValide' => true
             ]);

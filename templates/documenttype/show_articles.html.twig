@@ -2,6 +2,7 @@
 
 {% block title %}Articles{% endblock %}
 {% block body %}
+    <h1>Les articles({{ documents.getTotalItemCount }})</h1>
 
     <div class="container">
     <div class="row">
@@ -10,6 +11,8 @@
         </div>
     </div>
     <div class="row">
+        {% if documents | length > 0 %}
+        <div><h3>Résultat de votre recherche</h3></div>
     <div class="col">
         <div class="grid">
             {% for documenttype in documents  %}
@@ -19,9 +22,14 @@
                 {% do documents.setPageRange(2) %}
                 {{ knp_pagination_render(documents, 'pagination/pagination.html.twig') }}
             </div>
+
         </div>
     </div>
     </div>
+        {% else %}
+        <h1>Aucun résultat pour votre recherche</h1>
+        <a href="{{ path('show_article') }}">Revenir sur la liste des articles</a>
+        {% endif %}
     </div>
     {#
     <h1>Les Articles</h1>

@@ -10,18 +10,26 @@
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/home.css') }}" rel="stylesheet" >
         <link href="{{ asset('assets/css/membre.css') }}" rel="stylesheet" >
-        <link href="{{ asset('assets/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/css/event.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/css/article.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/css/news.css') }}" rel="stylesheet" >
+        <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
 
+
+
+        <link href="{{ asset('assets/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.css') }}" rel="stylesheet" >
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 
         {% block stylesheets %}
              {{ encore_entry_link_tags('app') }}
 
-            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
         {% endblock %}
 
+        */
         <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
@@ -40,7 +48,7 @@
         </style>
 
 
-        <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
@@ -132,7 +140,17 @@
     <div class="container"> #}
 
         <main role="main">
+
             {% if block('carousel') is defined %}
+
+                {# <!-- Main jumbotron for a primary marketing message or call to action -->
+                <div class="jumbotron">
+                    <div class="container">
+                        <h1 class="display-3">Description de l'institut ...</h1>
+                        <p>Ici on aura une description de l'institut ainsi que leur domaine de recherche</p>
+                        <p><a  href="{{ path('a_propos') }}" role="button">la suite ici</a></p>
+                    </div>
+                </div> #}
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for key, header in headers %}
@@ -175,7 +193,7 @@
 
             </div><!-- /.container -->
         {% block body %}
-   {#  </div> #}
+
         {% endblock %}
 
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -220,5 +238,6 @@
     <script src="{{ asset('assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.elevatezoom.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>}#}
+        </main>
     </body>
 </html>

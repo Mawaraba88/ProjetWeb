@@ -50,7 +50,7 @@ class Mailer {
 
         $message = (new \Swift_Message('Test envoi invitation calendrier'))
             //->setSubject('Test envoi invitation calendrier')
-            ->setFrom('benidrissas@dirips.com')
+            ->setFrom('mawaraba@gmail.com')
             ->setTo('benidrissas@dirips.com')
             ->setBody($body, 'text/html')
         ;

@@ -3,6 +3,10 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
     <div class="login_register_wrap section">
         <div class="container">
             <div class="row justify-content-center">
@@ -17,11 +21,8 @@
                                     <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                                 {% endfor %}
                             </div>
+
                             {{ form_start(registrationForm) }}
-                           {#<div class="form-group">
-                                {{ form_row(registrationForm.username) }}
-                            </div>
-                           #}
                             <div class="form-row">
                                 <div class="col-md-6"> {{ form_row(registrationForm.firstname) }}</div>
                                 <div class="col-md-6">{{ form_row(registrationForm.lastname) }}</div>
