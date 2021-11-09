@@ -2,15 +2,17 @@
 
 {% block title %} Accueil {% endblock %}
 
-{% block carousel %}{% endblock %}
+{# {% block carousel %}{% endblock %} #}
 
 {% block body %}
+
+    {#
     <hr class="featurette-divider">
 
-
+<div class="corps" style="background-color: skyblue">
    <div class="row">
        <div class="col-sm-8">
-           <h1 >A propos</h1>
+           <h1 class= "apropos" style="position: center;">A propos</h1>
            <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu neque ac diam tempus sollicitudin non ut diam. Aenean condimentum, sapien hendrerit faucibus malesuada, est ex cursus lectus, ut lacinia massa nulla at lacus. Vestibulum facilisis pellentesque libero, eu semper orci porttitor eu. Aenean tristique diam eget tortor vehicula vulputate. Ut congue diam a metus condimentum, ac cursus tortor dapibus. Praesent lobortis, dui id facilisis laoreet, tortor tellus interdum sem, ac egestas arcu dolor ac justo. Fusce vel sodales enim. Pellentesque ac ligula tincidunt, pellentesque tellus in, rhoncus urna. Nulla et magna ex. Nulla facilisi. Aenean dignissim dui nulla, a pellentesque quam dignissim ac. Donec ullamcorper, diam id laoreet volutpat, sapien orci pretium risus, a tincidunt urna odio ut magna. Aliquam at posuere ipsum, ut pharetra nisl.
 
                Proin quis libero a nunc blandit gravida id eu sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris sem libero, fermentum id luctus ac, aliquet quis lorem. In volutpat magna eget egestas tincidunt. Donec odio elit, tincidunt et condimentum ac, ornare ac arcu. Fusce fermentum quam eget orci pharetra, convallis condimentum velit lobortis. Vestibulum a metus semper, luctus diam et, viverra magna. Nunc nec varius quam. Praesent sodales tincidunt consectetur.
@@ -76,7 +78,7 @@
                 </div>
                 <div class="details">
                     <div class="category"><a href="">Articles</a></div>
-                    <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title">{{ document.title }}</h5></a>
+                    <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title"></h5></a>
 
                     <span class="new-date">
                         Auteur(s) :
@@ -178,207 +180,408 @@
             </div>
 
 
-            
-
-{#
-    <h3>Les dernières nouvelles</h3>
-
-    <div class="row">
-        {% for new in news %}
-            <div class="col-md-3">
-                <div class="new-item text-center">
-                   {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#
-                    <a href="{{ path('showNews', {'id':new.id}) }}" ><h5 class="card-title">{{ new.title }}</h5></a>
-                    <span class="new-subtitle">Publié le {{ new.createdAt | date("d/m/Y")}}</span>
-                    {# <span class="new-date">
 
 
-                            {% if new.startCreatedAt and new.endCreatedAt %}
-                                <p class="date"> Du {{ new.startCreatedAt | date("d/m/Y") }}
-                                  Au {{ new.endCreatedAt | date("d/m/Y") }} </p>
+        </div>
+    #}
+
+    <main>
+                    {# Caroussel #}
+
+        <div id="myCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel">
+
+            <!--
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+        -->
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-1.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Capensis - Solution LINUX</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-2.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>CHRU - Hôpitaux de Tours</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-3.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>La Ligue contre le cancer</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-4.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-5.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-6.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-7.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="carousel-item">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#FFF"/></svg>
+
+                    <div class="">
+                        <div class="carousel-caption text-start carousel-responsive justify-content-center">
+
+                            <div class="col-lg-5">
+                                <div class="partenaire-img">
+                                    <img class="img-resize" src="{{ asset('assets/img/partenaire-8.jpg') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-7 partenaire-txt">
+                                <h4 class="partenaire-title">Nos partenaires</h4>
+                                <p>Some representative placeholder content for the first slide of the carousel.</p>
+                                <p><a class="link" href="#">Découvrir</a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+                {# Le text de la home page #}
+
+        <div class="container pb-4 pt-4">
+
+            <div class="row gx-5">
+
+                <div class="col-lg-8">
+
+                    <div class="row featurette">
+                        <div class="col-md-7">
+                            <h2 class="heading mb-4">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                            <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="about-container">
+                                <img class="about" src="{{ asset('assets/img/img-test.png') }}">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- NEWS
+                        ================================================== -->
+
+
+                <div class="col-lg-4">
+
+                    <h3 class="pb-2 text-start text-muted">News</h3>
+
+                    <div class="news-display">
+
+                        <!-- NEWS -->
+                        {% if news %}
+                        {% set index = 0 %}
+                        {% for new in news %}
+                        {% set index = index + 1 %}
+
+                        <div class="news-container">
+                            <div class="news-txt">
+                                <h4>New N°{{ index }}</h4>
+                                <p><a href="{{ path('showNews', {'id':new.id}) }}">{{ new.title }}</a></p>
+
+                                <a href="{{ path('show_nouvelle') }}">Voir toutes les News</a>
+                                <time style="padding-top: 10px">{{ "now"|date("m/d/Y") }} </time>
+                            </div>
+                             <div class="news-img">
+                                <img class="img-custom" src="{{ asset('assets/img/article-1.jpg') }}">
+                            </div >
+                            {# <div class="news-img">
+                                <img class="img-custom" src="{{ asset('/uploads/news-fond.jpg')}}"  alt="{{ new.title }}">
+                            </div> #}
+
+
+                            {% endfor %}
+                            {% else %}
+                                <p>Aucune Nouvelle !</p>
                             {% endif %}
-                    </span>
-                    #}
-                    {# <span> <a href="{{ path('showNews', {'id':new.id}) }}" >En savoir plus</a></span> #
+                        </div>
+                        <!-- END NEWS -->
+
+                    </div>
 
                 </div>
 
             </div>
-        {% endfor %}
 
-    </div><!-- /.row -->
-
-
-    <hr class="featurette-divider">
-    <div class="row">
-        <div class="col-sm-6">
-            <h5>Evénement à venir...</h5>
-          <div class="card">
-              <div class="card-body">
-                  {% for event in events %}
-                      <div class="new-item text-center">
-                          <!--rendre l'image cliquable et redirection vers le detail du produit via son slug-->
-                          {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#}
-
-                          {#  <span class="new-subtitle">Publié le {{ event.createdAt | date("d/m/Y")}}</span>#
-                          <span class="new-date">
-
-
-                            {% if event.startCreatedAt and event.endCreatedAt %}
-                                <p class="date"> Du {{ event.startCreatedAt | date("d/m/Y") }}
-                                  Au {{ event.endCreatedAt | date("d/m/Y") }} </p>
-                            {% endif %}
-
-                    </span>
-                          {#    <span> <a href="{{ path('showNews', {'id':event.id}) }}" class="btn btn-primary">En savoir plus</a></span> #
-                          <a href="{{ path('showNews', {'id':event.id}) }}"><h5 class="card-title">{{ event.title }}</h5></a>
-                      </div>
-
-
-                  {% endfor %}
-                  <div>
-                      <span><a href="{{ path('show_evenement') }}" >Voir tous les événements</a></span>
-                  </div>
-              </div>
-          </div>
         </div>
 
-        <div class="col-sm-6">
-            <h5>Séminaire à venir...</h5>
-           <div class="card">
-               <div class="card-body">
-                   {% for seminar in seminars %}
-                       <div class="new-item text-center">
-                           <!--rendre l'image cliquable et redirection vers le detail du produit via son slug-->
-                           {#  <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}"  class="img-fluid"/>#}
 
-                          {#  <span class="new-subtitle">Publié le {{ seminar.createdAt | date("d/m/Y")}}</span>#
-                           <span class="new-date">
+        <hr class="featurette-divider">
 
 
-                            {% if seminar.startCreatedAt and seminar.endCreatedAt %}
-                                <p class="date"> Du {{ seminar.startCreatedAt | date("d/m/Y") }}
-                                  Au {{ seminar.endCreatedAt | date("d/m/Y") }} </p>
-                            {% endif %}
-                    </span>
-                          {#  <span> <a href="{{ path('showNews', {'id':seminar.id}) }}" class="btn btn-primary">En savoir plus</a></span> #
-                           <a href="{{ path('showNews', {'id':seminar.id}) }}"><h5 class="card-title">{{ seminar.title }}</h5></a>
-                       </div>
+        <!-- ARTICLES
+        ================================================== -->
 
-                   {% endfor %}
-                   <div>
-                       <span><a href="{{ path('show_seminaire') }}" >Voir tous les séminaires</a></span>
-                   </div>
-               </div>
-           </div>
-        </div>
-    </div>
-    <hr class="featurette-divider">
+        <div class="container marketing">
 
+            <!-- Three columns of text -->
+            <div class="row gx-5">
 
-  {#
+                <!--Article-->
+                {% for document in documents %}
+                <div class="col-lg-4">
 
-  <h1>Ici vous êtes sur la page d'accueil</h1>
-      <!--Affichage des articles sur le page d'accueil-->
+                    <div class=" article">
 
-      {% for message in app.flashes('confirm') %}
-          <div class="alert alert-success" role="alert">{{ message }}</div>
-      {% endfor %}
-
-      {% for message in app.flashes('success') %}
-          <div class="alert alert-success" role="alert">{{ message }}</div>
-
-
-
-
-      <div class="row">
-          <div class="col-md-8">
-              <div class="row">
-                  {% for document in documents %}
-                      <div class="card col-md-4" style="width: 18rem;">
-
-                          <img class="card-img-top" src="/uploads/{{ document.picture }}" alt="{{ document.title }}">
-                          <div class="card-body">
-                              <h5 class="card-title">{{ document.title }}</h5>
-                              <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}}</p>
-
-                              Auteur(s) :
-                              {% set authors = document.author %}
-                              {% set chaine = "" %}
-                              {% for author in authors %}
-                                  {% set chaine = chaine ~ author.getFullName %}
-                                  {% set chaine = chaine ~ ', ' %}
-                              {% endfor %}
-                              {{ chaine }}
-
-
-                              <a href="{{ path('showDocument', {'id':document.id}) }}" class="btn btn-primary">En savoir plus</a>
-                          </div>
-                      </div>
-                  {% endfor %}
-
-                  {% for new in news %}
-                      <div class="card col-md-4" style="width: 18rem;">
-
-                         {#  <img class="card-img-top" src="/uploads/{{ new.picture }}" alt="{{ new.title }}">#}
-    {#<div class="card-body">
-                            <h5 class="card-title">{{ new.title }}</h5>
-                            <p class="date">Publié le {{ new.createdAt | date("d/m/Y")}}</p>
-
-                            Auteurs :
-
-                            {% if new.startCreatedAt and new.endCreatedAt %}
-                              <p class="date"> Du {{ new.startCreatedAt | date("d/m/Y") }}
-                                  Au {{ new.endCreatedAt | date("d/m/Y") }} </p>
-                            {% endif %}
-
-                            <a href="{{ path('showNews', {'id':new.id}) }}" class="btn btn-primary">En savoir plus</a>
+                       {#  <a href="{{ path('showDocument', {'id':document.id}) }}">
+                            <img class="img-crop" src="{{ asset('/uploads/font.jpg')}}"  alt="{{ document.title }}" >
+                        </a> #}
+                         <div class="img-container">
+                            <img class="img-crop" src="{{ asset('assets/img/article-1.jpg') }}">
                         </div>
+                        <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title"></h5></a>
+                        <h2> {{ document.title }}</h2>
+                        <p class="content-article"> Auteur(s) :
+                            {% set authors = document.author %}
+                            {% set chaine = "" %}
+                            {% for author in authors %}
+                                {% set chaine = chaine ~ author.getFullName %}
+                                {% set chaine = chaine ~ ', ' %}
+                            {% endfor %}
+                            {{ chaine }}</p>
+                        <p><a class="btn btn-outline-secondary" href="{{ path('showDocument', {'id':document.id}) }}">Lire l'article</a></p>
+
+
                     </div>
+
+                </div>
+                {% endfor %}
+                <div>
+                    <span><a href="{{ path('show_article') }}" style="font-style: italic" >Voir tous les articles</a></span>
+                </div>
+                <!--End Article-->
+
+
+            </div><!-- /.row -->
+
+
+            <!-- START THE FEATURETTES -->
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette gx-5" style="background-color: peru">
+                {% for event in events %}
+                <div class="col-lg-6 event">
+                    <h2 class="heading"><span>Evénements</span></h2>
+                    <div class="widget-49-date-primary">
+                        <span class="widget-49-date-day">Du {{ event.startCreatedAt | date("d/m/y") }} au {{ event.endCreatedAt | date("d/m/y") }}</span>
+                    </div>
+                    <div class="widget-49-meeting-info">
+                        <span class="widget-49-pro-title">
+                            <a href="{{ path('showNews', {'id':event.id}) }}">{{ event.title }}</a>
+                        </span>
+                    </div>
+                    <p class="lead">{{ event.resume }}</p>
+                    <a href="{{ path('show_evenement') }}">Voir tous les événements</a>
+                </div>
+                {% endfor %}
+
+                {% for seminar in seminars %}
+                <div class="col-lg-6  event side-separator">
+                    <h2 class="heading">Séminaires </h2>
+                    <div class="widget-49-date-primary">
+                            <span class="widget-49-date-day"> Du {{  seminar.startCreatedAt | date("d/m/y") }} au {{  seminar.endCreatedAt | date("d/m/y") }}</span>
+                    </div>
+
+                            <span class="widget-49-pro-title">   <a href="{{ path('showNews', {'id':seminar.id}) }}">{{ seminar.title }}</a></span>
+
+                    <p class="lead">{{  seminar.resume }}</p>
+                    <a href="{{ path('show_seminaire') }}">Voir tous les séminaires</a>
+                </div>
                 {% endfor %}
             </div>
 
-        </div>#}
+            <!-- Alternate design
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                  <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
+                    <p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+                  </div>
+                  <div class="col-md-5 order-md-1">
+                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+                  </div>
+                </div>
+            -->
+            <hr class="featurette-divider">
+
+            <!-- /END THE FEATURETTES -->
+
+        </div><!-- /.container -->
 
 
-<!--Affichage des catégories -->
-
+        <!-- FOOTER -->
         {#
-        <div class="col-md-4">
-            <h2>Documents</h2>
-
-            <ul class="list-group">
-                {% for category in categories %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a href="{{ path('show_documenttype', {'id':category.id}) }}">
-
-                     {{ category.name }}
-
-                    <span class="badge bg-primary rounded-pill">{{ pluralize(category.documenttypes | length, 'document')}}</span>
-                    </a>
-                </li>
-                {% endfor %}
-
-            </ul>
-
-            <h2>News</h2>
-
-            <ul class="list-group">
-                {% for cat in categoryNews %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{{ path('show_newstype', {'id':cat.id}) }}">
-
-                            {{ cat.name }}
-
-                            <span class="badge bg-primary rounded-pill">{{ pluralize(cat.newstypes | length, 'news')}}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-
-            </ul>
-        </div>
-
-    </div>
-{% endblock %}
+        <footer class="container">
+          <p class="float-end"><a href="#">Back to top</a></p>
+          <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
         #}
+    </main>
+
+
+
+
+
 {% endblock %}

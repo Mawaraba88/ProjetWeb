@@ -53,23 +53,70 @@ class HomeController extends AbstractController
         $categoryNews = $this->repoCategoryNews->findAll();
 
 
-        //$documents = $this->repoDocumentType->findAll();
-        /*$documents = $this->repoDocumentType->findByIsActive(1);
-        $news = $this->repoNewsType->findByIsActive(1);*/
-       /* $documents = $this->repoDocumentType->findBy([
-            'isActive'=> true ],
 
-            ['createdAt' => 'desc']
-           );*/
-        $documents = $this->entityManager->getRepository(Documenttype::class)->findwithDocuments('Articles');
-       /* $news = $this->repoNewsType->findBy([
-            'isActive'=> true],
-            ['createdAt' => 'desc'
-            ]);*/
-        $news = $this->entityManager->getRepository(News::class)->findwithNews('Nouvelles');
+        /*$documents = $this->entityManager->getRepository(Documenttype::class)->findwithDocuments('Articles');
+     */
+        $documentsTmp = $this->entityManager->getRepository(Documenttype::class)->findwithDocuments('Articles');
+        $documents = array();
+        foreach ( $documentsTmp  as $document) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($document->getCreatedAt());
 
-        $events = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Evénements');
-        $seminars = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Séminaires');
+            //die(var_dump($interval));
+            if($interval->days > $document->getDurationOfPublication()) {
+                // die(var_dump($document));
+                $document->setIsActive(false);
+
+            } else {
+                $documents[] = $document;
+            }
+
+
+        }
+        $newsTmp = $this->entityManager->getRepository(News::class)->findwithNews('Nouvelles');
+        $news = array();
+
+        foreach ($newsTmp as $new) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($new->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $new->getDurationOfPublication()) {
+                $new->setIsActive(false);
+            } else {
+                $news[] = $new;
+            }
+        }
+
+        $eventsTmp = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Evénements');
+
+        $events = array();
+        foreach ($eventsTmp as $event) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($event->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $event->getDurationOfPublication()) {
+                $event->setIsActive(false);
+            } else {
+                $events[] = $event;
+            }
+        }
+        $seminarsTmp = $this->entityManager->getRepository(News::class)->findwithEventsAndSeminars('Séminaires');
+        $seminars = array();
+        foreach ( $seminarsTmp as $seminar) {
+            $dateJour = new \DateTime();
+            $interval = $dateJour->diff($seminar->getCreatedAt());
+
+            //die(var_dump($interval));
+            if($interval->days > $seminar->getDurationOfPublication()) {
+                $seminar->setIsActive(false);
+            } else {
+                $seminars[] = $seminar;
+            }
+        }
+
+
         $headers = $this->entityManager->getRepository(Header::class)->findAll();
 
         return $this->render('home/index.html.twig', [
