@@ -68,7 +68,7 @@ class DocumenttypeRepository extends ServiceEntityRepository
         JOIN d.categorydonnees c WHERE c.name = :criteria AND d.isActive=1
         ORDER BY d.createdAt DESC');
         $query->setParameter('criteria', $criteria);
-        $query->setMaxResults(4);
+        $query->setMaxResults(3);
         //$query->setHint(\Doctrine\ORM\Query::HINT_INCLUDE_META_COLUMNS, true);
         $tab = $query->getResult();
         return $tab;

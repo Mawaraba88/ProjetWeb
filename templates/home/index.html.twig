@@ -448,12 +448,13 @@
                                 <img class="img-custom" src="{{ asset('/uploads/news-fond.jpg')}}"  alt="{{ new.title }}">
                             </div> #}
 
-
+                        </div>
                             {% endfor %}
                             {% else %}
                                 <p>Aucune Nouvelle !</p>
                             {% endif %}
-                        </div>
+
+                    </div>
                         <!-- END NEWS -->
 
                     </div>
@@ -518,7 +519,7 @@
 
             <hr class="featurette-divider">
 
-            <div class="row featurette gx-5" style="background-color: peru">
+            <div class="row featurette gx-5">
                 {% for event in events %}
                 <div class="col-lg-6 event">
                     <h2 class="heading"><span>Evénements</span></h2>
