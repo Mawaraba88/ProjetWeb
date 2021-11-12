@@ -101,10 +101,7 @@ class RegistrationFormType extends AbstractType
                     ]
                 ]
             ])
-            /* ->add('partners', ChoiceType::class, [
-                 'choices' =>$this->getChoice(),
-                 'required' =>false
-             ])*/
+
             ->add('partners',EntityType::class, [
                 'class'=>Partners::class,
                 'multiple' =>true,
@@ -165,15 +162,5 @@ class RegistrationFormType extends AbstractType
         }
         return $outpout;
     }
-    /*
-    private function getChoice()
-    {
-        $choice = User::PARTNERS;
-        $outpout = [];
-        foreach ($choice as $k => $v)
-        {
-            $outpout[$v] = $k;
-        }
-        return $outpout;
-    }*/
+
 }
