@@ -2,18 +2,18 @@
 
 {% block title %}Articles{% endblock %}
 {% block body %}
-    <h1>Les Compte-rendus ({{ documents.getTotalItemCount }})</h1>
+    <div class="title-article">
+    <h3>Les Compte-rendus ({{ documents.getTotalItemCount }})</h3>
+    </div>
+    <h5>Filtre</h5>
+    <div class="container-article">
+        <div class="row-filter">
 
-    <div class="container">
-        <div class="row">
-
-            <div class="col">
                 {% include 'documenttype/_filter.html.twig' %}
-            </div>
         </div>
-        <div class="row">
+        <div class="row-content">
             {% if documents | length > 0 %}
-            <div><h3>Résultat de votre recherche</h3></div>
+            {# <div><h3>Résultat de votre recherche</h3></div> #}
             <div class="col">
                 <div class="grid">
                     {% for documenttype in documents  %}
@@ -29,7 +29,7 @@
             </div>
         </div>
         {% else %}
-            <h1>Aucun résultat pour votre recherche</h1>
+            <h4>Aucun résultat pour votre recherche</h4>
             <a href="{{ path('show_compteRendu') }}">Revenir sur la liste des compte-rendus</a>
         {% endif %}
     </div>

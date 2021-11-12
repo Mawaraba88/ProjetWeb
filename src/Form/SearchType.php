@@ -38,35 +38,6 @@ class SearchType extends AbstractType
     ]*/
             ])
 
-
-
-            //pour faire reference à l'entité categorie on appel EntityType en 2ème paramètre
-          /*  ->add('categoriesDonnees', EntityType::class, [
-                'label'=>false,
-                'required'=>false,
-                //lien avec la classe
-                'class'=>CategoryDonnees::class,
-                'multiple'=>true,
-                'expanded'=> true
-
-            ])*/
-
-            /*->add('authors', TextType::class, [
-                'label'=>false,
-                'required'=>false,
-                'attr' => [
-                    'placeholder' => 'Votre recherche...',
-                    'class'=>'form-control-sm'
-                ]
-
-            ])
-            ->add('submit', SubmitType::class, [
-                'label'=>'Filtrer',
-                'attr'=>[
-                    'class'=>'btn-block btn-info'
-                ]
-
-            ])*/
             ;
     }
     public function configureOptions(OptionsResolver $resolver)

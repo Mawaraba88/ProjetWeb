@@ -2,28 +2,27 @@
 
 {% block title %} Nouvelles {% endblock %}
 {% block body %}
-    <h1>Les Nouvelles</h1>
+    <div class="title-article">
+    <h3>Les Nouvelles</h3>
+    </div>
 
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
+    <h5>Filtre</h5>
+    <div class="container-article">
+        <div class="row-filter">
                 {% include 'news/_filtre.html.twig' %}
-            </div>
         </div>
-
-
-    <div class="container mt-4">
-<div class="row">
+    <div class="row-content">
     {% if news | length > 0 %}
-    <div><h3>Résultat de votre recherche</h3></div>
+   {#  <div><h3>Résultat de votre recherche</h3></div> #}
+    <div class="col">
+        <div class="grid">
     {% for new in news %}
         {% include 'news/_doc_new.html.twig' %}
        {#  <div class="img-fluid">
             <img width="80px" src="/uploads/{{ new.picture }}" alt="{{ new.title }}"/>
         </div>
        #}
-        >
+
 
     {% endfor %}
     <div class="d-flex justify-content-center">
@@ -31,11 +30,12 @@
         {{ knp_pagination_render(news, 'pagination/pagination.html.twig') }}
     </div>
 
-    <a href="{{ path('show_nouvelle') }}">Revenir sur la liste des nouvelles</a>
-</div>
+    </div>
+        </div>
+
     </div>
         {% else %}
-            <h1>Aucun résultat pour votre recherche</h1>
+            <h4>Aucun résultat pour votre recherche</h4>
             <a href="{{ path('show_nouvelle') }}">Revenir sur la liste des nouvelles</a>
         {% endif %}
     </div>
