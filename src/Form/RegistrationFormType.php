@@ -39,28 +39,22 @@ class RegistrationFormType extends AbstractType
                 'label'=>"Votre prénom",
                 'constraints' => new length([
                     'min'=> 2,
-                    'max'=> 30]),
-                'attr'=>[
-                    'placeholder' => 'Saisir votre prénom'
-                ]
+                    'max'=> 30])
+
             ])
             ->add('lastname',TextType::class, [
                 'label' => "Votre nom",
                 'constraints' => new length([
                     'min'=> 2,
-                    'max'=> 30]),
-                'attr' => [
-                    'placeholder' => 'Saisir votre nom'
-                ]
+                    'max'=> 30])
+
             ])
             ->add('email', EmailType::class, [
                 'label' => "Votre email",
                 'constraints' => new length([
                     'min'=> 2,
-                    'max'=> 55]),
-                'attr' => [
-                    'placeholder' =>'Saisir votre email'
-                ]
+                    'max'=> 55])
+
             ])
 
             /* ->add('agreeTerms', CheckboxType::class, [
@@ -85,20 +79,16 @@ class RegistrationFormType extends AbstractType
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 4096
                     ]),
                 ],
                 'first_options' =>[
                     'label' => 'Mot de passe',
-                    'attr' => [
-                        'placeholder' =>'Saisir votre mot de passe'
-                    ]
+
                 ],
                 'second_options' => [
                     'label' => 'Confirmez votre mot de passe',
-                    'attr' => [
-                        'placeholder' =>'Confirmez votre mot de passe'
-                    ]
+
                 ]
             ])
 
@@ -110,35 +100,31 @@ class RegistrationFormType extends AbstractType
                     'class'=>'js-partners-multiple',
                 ],
                 'choice_label' => 'name',
-                'placeholder' => 'Sélectionner les partenaires',
-                'label' => 'Partners'
+
+                'label' => 'Choisir vos Partenaires'
             ])
 
             ->add('studylevel', ChoiceType::class, [
+                'label' =>'Niveau d\'étude',
                 'choices' =>$this->getChoices(),
                 'required' =>false,
 
-                'placeholder' => 'Choisir votre niveau '
+                'placeholder' => 'Choisir votre niveau d\'étude'
 
             ])
             ->add('phone', TextType::class, [
-                'attr' => [
-                    'placeholder' => 'Saisir votre numéro de téléphone'
-                ]
+                'label'=>'Tél'
 
             ])
 
             ->add('fieldOfResearch', TextType::class, [
-                'attr'=>[
-                    'placeholder' => 'Saisir domaine de recherche'
-                ]
+                'label' => 'Champs de recherche'
 
             ])
 
             ->add('webSite', TextType::class, [
-                'attr'=>[
-                    'placeholder' => 'Saisir domaine votre site web'
-                ]
+                'label' => 'Site Web'
+
 
             ])
 

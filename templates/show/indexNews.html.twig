@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<div class="container">
-    <h1 class="title p-1">{{ news.title }}</h1>
+<div class="container-style">
+    <!--<h1 class="title p-1">{{ news.title }}</h1>-->
 
-    <div class="img-fluid">
-        <img width="100%" src="/uploads/{{ news.picture }}" style="width:200px; height: 200px" alt="{{ news.title }}"/>
+    <div class="img-fluid-style">
+        <img src="/uploads/{{ news.picture }}" alt="{{ news.title }}"/>
     </div>
 
-   <div class="content">
+   <div class="content-style">
        <h2 class="title">{{ news.title }}</h2>
-       <p class="content text-justify">
+       <p class="resume">
            {{ news.resume | raw}}
        </p>
        <p class="date">Publié le {{ news.createdAt | date("d/m/Y")}} </p>

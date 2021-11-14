@@ -1,19 +1,38 @@
 {% extends "base.html.twig" %}
 {% block body %}
-<div class="container">
-    <h1 class="title p-1">{{ document.title }}</h1>
+<div class="container-style">
+    <!--<h1 class="title p-1">{{ document.title }}</h1>-->
 
-    <div class="img-fluid">
-        <img   src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}"  alt="{{ document.title }}"/>
+    <div class="img-fluid-style">
+        <img src="{{ vich_uploader_asset(document, 'imageFile')| imagine_filter('miniature')}}"  alt="{{ document.title }}"/>
     </div>
 
-   <div class="content">
+   <div class="content-style">
+   <div class="header">
        <h2 class="title">{{ document.title }}</h2>
-       <p class="content text-justify">
+       <div class="header-content">
+            <div class="author">
+                Auteur(s) :
+                {% set authors = document.author %}
+                {% set chaine = "" %}
+                {% for author in authors %}
+                    {% set chaine = chaine ~ author.getFullName %}
+                    {% set chaine = chaine ~ ', ' %}
+                {% endfor %}
+                {{ chaine }}
+            </div>
+            <div class="download">
+                {% if document.brochureFilename %}
+                    <a href="{{ asset('uploads/' ~ document.brochureFilename) }}">Télécharger le document (PDF)</a>
+                {% endif %}
+            </div>
+       </div>
+   </div>
+       <p class="resume">
            {{ document.resume | raw}}
        </p>
        <p class="date">Publié le {{ document.createdAt | date("d/m/Y")}} </p>
-       Auteur(s) :
+      {# Auteur(s) :
        {% set authors = document.author %}
        {% set chaine = "" %}
        {% for author in authors %}
@@ -21,14 +40,15 @@
            {% set chaine = chaine ~ ', ' %}
        {% endfor %}
        {{ chaine }}
-       <p>
+       #}
+       <!--<p>
        {% if document.brochureFilename %}
-       <div class="img-fluid">
+       <div class="download">
            <a href="{{ asset('uploads/' ~ document.brochureFilename) }}">Télécharger le document (PDF)</a>
 
        </div>
         {% endif %}
-       </p>
+       </p>-->
 
    </div>
 </div>

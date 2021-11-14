@@ -103,48 +103,7 @@ class DocumenttypeController extends AbstractController
 
         ]);
     }
-/*
-    /**
-     * @Route ("/showPrototype", name= "show_prototype")
-     */
-   /* public function showPrototype(Request $request):Response
-    {
-        //die('toto');
-        //die('toto');
-        $entityManager = $this->getDoctrine()->getManager();
-        $documentsTmp = $entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Prototypes');
-        $documents = array();
-        //pour passer un formulaire à twig
-        $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
 
-        //recuperation de la requete envoyé par url
-        $form->handleRequest($request);
-        if($form->isSubmitted()&&$form->isValid()){
-            $documentsTmp = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search, 'Prototypes');
-        }
-        foreach ( $documentsTmp  as $document) {
-            $dateJour = new \DateTime();
-            $interval = $dateJour->diff($document->getCreatedAt());
-
-            //die(var_dump($interval));
-            if($interval->days > $document->getDurationOfPublication()) {
-                // die(var_dump($document));
-                $document->setIsActive(false);
-
-            } else {
-                $documents[] = $document;
-            }
-        }
-
-        $entityManager->flush();
-
-        return $this->render('documenttype/show_prototypes.html.twig', [
-            'documents' => $documents,
-            'form'=>$form->createView()
-
-        ]);
-    }*/
     /**
      * @Route ("/showPrototype", name= "show_prototype")
      */
@@ -237,42 +196,6 @@ class DocumenttypeController extends AbstractController
         ]);
     }
 
-
-/*
-    /**
-     * @Route ("/showArticle", name= "show_article")
-     */
- /*   public function showArticle(Request $request):Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        //pour passer un formulaire à twig
-        $search = new Search();
-        $form = $this->createForm(SearchType::class, $search);
-
-
-
-        $documents = $entityManager->getRepository(DocumentType::class)->findDocumentsByCriteria('Articles');
-
-        //recuperation de la requete envoyé par url
-        $form->handleRequest($request);
-        if($form->isSubmitted()&&$form->isValid()){
-            $documents = $this->entityManager->getRepository(Documenttype::class)->findwithSearch($search, 'Articles');
-        }
-        /*else{
-            //recuperation de tous les produits en passant par le repository de la classe en question
-            $documents = $this->entityManager->getRepository(Documenttype::class)->findDocumentsByCriteria('Articles');
-
-        }
-
-
-
-        //die(var_dump(count($documents)));
-        return $this->render('documenttype/show_articles.html.twig', [
-            'documents' => $documents,
-            'form'=>$form->createView()
-
-        ]);
-    }*/
 
     /**
      * @Route ("/showArticle", name= "show_article")

@@ -437,8 +437,6 @@
                             <div class="news-txt">
                                 <h4>New N°{{ index }}</h4>
                                 <p><a href="{{ path('showNews', {'id':new.id}) }}">{{ new.title }}</a></p>
-
-                                <a href="{{ path('show_nouvelle') }}">Voir toutes les News</a>
                                 <time style="padding-top: 10px">{{ "now"|date("m/d/Y") }} </time>
                             </div>
                              <div class="news-img">
@@ -450,6 +448,7 @@
 
                         </div>
                             {% endfor %}
+                            <div><span>  <a href="{{ path('show_nouvelle') }}" style="font-style: italic">Voir toutes les News</a></span></div>
                             {% else %}
                                 <p>Aucune Nouvelle !</p>
                             {% endif %}
@@ -489,8 +488,8 @@
                          <div class="img-container">
                             <img class="img-crop" src="{{ asset('assets/img/article-1.jpg') }}">
                         </div>
-                        <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title"></h5></a>
-                        <h2> {{ document.title }}</h2>
+                        <a href="{{ path('showDocument', {'id':document.id}) }}"><h5 class="card-title"> {{ document.title }}</h5></a>
+
                         <p class="content-article"> Auteur(s) :
                             {% set authors = document.author %}
                             {% set chaine = "" %}
@@ -499,7 +498,7 @@
                                 {% set chaine = chaine ~ ', ' %}
                             {% endfor %}
                             {{ chaine }}</p>
-                        <p><a class="btn btn-outline-secondary" href="{{ path('showDocument', {'id':document.id}) }}">Lire l'article</a></p>
+                        <p><a class="btn btn-outline-secondary" href="{{ path('showDocument', {'id':document.id}) }}">Voir l'article</a></p>
 
 
                     </div>

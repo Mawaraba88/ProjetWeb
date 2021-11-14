@@ -66,7 +66,7 @@
                         <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ path('documenttype_new') }}" class="btn btn-fill-out mb-3">Add document</a>
+                                    <a href="{{ path('documenttype_new') }}" class="btn btn-fill-out mb-3">Ajouter document</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,11 +78,11 @@
                                 <div class="col-lg-6">
                                     <div class="card mb-3 mb-lg-0">
                                         <div class="card-header">
-                                            <h3> Your document </h3>
+                                            <h3> Vos documents </h3>
                                         </div>
                                         <div class="card-body">
-                                            <document> Article N°{{ index }}<br>
-                                                Title: {{ doc.title }}<br>
+                                            <document> Document N°{{ index }}<br>
+                                                Titre: {{ doc.title }}<br>
                                                 Resume: {{ doc.resume }}<br>
                                                 Publié le {{ doc.createdAt | date("d/m/Y")}}<br>
 
@@ -97,9 +97,8 @@
 
                                             </document>
                                             <div class="btn-group">
-                                                <a href="{{ path('documenttype_edit', {'id':doc.id}) }}" class="btn btn-success">Edit</a>
-                                                <a href="{{ path('documenttype_delete',{'id':doc.id}) }}" class="btn btn-success">Delete</a>
-
+                                                <a href="{{ path('documenttype_edit', {'id':doc.id}) }}" class="btn btn-success">Modifier</a>
+                                                <a href="{{ path('documenttype_delete',{'id':doc.id}) }}" class="btn btn-success">Supprimer</a>
                                             </div>
 
                                         </div>
@@ -107,7 +106,7 @@
                                 </div>
                                 {% endfor %}
                                 {% else %}
-                                <p>Sorry you haven't added an document to your account yet !</p>
+                                <p>Vous n'avez aucun document ajouté !</p>
                                 {% endif %}
 
                             </div>
@@ -116,7 +115,7 @@
                         <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ path('news_new') }}" class="btn btn-fill-out mb-3">Add news</a>
+                                    <a href="{{ path('news_new') }}" class="btn btn-fill-out mb-3">Ajouter news</a>
                                 </div>
                             </div>
                             <div class="row">
@@ -128,19 +127,19 @@
                                         <div class="col-lg-6">
                                             <div class="card mb-3 mb-lg-0">
                                                 <div class="card-header">
-                                                    <h3> Your news </h3>
+                                                    <h3> Vos news </h3>
                                                 </div>
                                                 <div class="card-body">
                                                     <news> News N°{{ index }}<br>
-                                                        Title: {{ new.title }}<br>
+                                                        Titre: {{ new.title }}<br>
                                                         Resume: {{ new.resume }}<br>
                                                           Du {{ new.startCreatedAt | date("d/m/Y")}} au {{ new.endCreatedAt | date("d/m/Y")}}<br>
                                                         Par: {{ app.user.firstname  }} {{ app.user.lastname  }}
 
                                                     </news>
                                                     <div class="btn-group">
-                                                        <a href="{{ path('news_edit', {'id':new.id}) }}" class="btn btn-success">Edit</a>
-                                                        <a href="{{ path('news_delete',{'id':new.id}) }}" class="btn btn-success">Delete</a>
+                                                        <a href="{{ path('news_edit', {'id':new.id}) }}" class="btn btn-success">Modifier</a>
+                                                        <a href="{{ path('news_delete',{'id':new.id}) }}" class="btn btn-success">Supprimer</a>
 
                                                     </div>
 
@@ -149,7 +148,7 @@
                                         </div>
                                     {% endfor %}
                                 {% else %}
-                                    <p>Sorry you haven't added an document to your account yet !</p>
+                                    <p>Vous n'avez aucun News ajouté !</p>
                                 {% endif %}
 
                             </div>

@@ -8,77 +8,66 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
-    <div class="login_register_wrap section">
+    <div class="register">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-md-10">
-                    <div class="login_wrap">
-                        <div class="padding_eight_all bg-white">
-                            <div class="heading_s1">
-                                <h3>Créer un compte</h3>
-                            </div>
-                            <div class="message-flash">
-                                {% for flashError in app.flashes('verify_email_error') %}
-                                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-                                {% endfor %}
-                            </div>
-
-                            {{ form_start(registrationForm) }}
-                            <div class="form-row">
-                                <div class="col-md-6"> {{ form_row(registrationForm.firstname) }}</div>
-                                <div class="col-md-6">{{ form_row(registrationForm.lastname) }}</div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_row(registrationForm.email) }}
-                            </div>
-                            <div class="form-group">
-                                {{ form_row(registrationForm.plainPassword)}}
-                            </div>
-
-                            <div class="form-group">
-                                {{ form_row(registrationForm.phone)}}
-                            </div>
-                            <div class="form-group">
-                                {{ form_row(registrationForm.fieldOfResearch)}}
-                            </div>
-                            <div class="form-group">
-                                {{ form_row(registrationForm.partners)}}
-                            </div>
-                            <div class="login_footer form-group">
-                                <div class="chek-form">
-                                    <div class="custome-checkbox">
-                                        {{ form_row(registrationForm.studylevel) }}
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="form-group">
-                                <div class="custome-checkbox">
-                                    {{ form_row(registrationForm.webSite) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="custome-checkbox">
-                                    {{ form_row(registrationForm.imageFile) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-fill-out btn-block" name="register">Inscrire</button>
-                            </div>
-                            {{ form_end(registrationForm) }}
-                            <div class="different_login">
-
-                            </div>
-
-                            <div class="form-note text-center">Vous êtes Membre ? <a href="{{ path('app_login') }}">Connexion</a></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="heading">
+                <h3>Créer un compte</h3>
             </div>
+            <div class="message-flash">
+                {% for flashError in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                {% endfor %}
+            </div>
+
+            {{ form_start(registrationForm) }}
+            <div class="form-user">
+                <div> {{ form_row(registrationForm.firstname) }}</div>
+                <div>{{ form_row(registrationForm.lastname) }}</div>
+            </div>
+
+            <div class="form-email">
+                {{ form_row(registrationForm.email) }}
+            </div>
+
+            <div class="form-password">
+                {{ form_row(registrationForm.plainPassword)}}
+            </div>
+
+            <div class="form-phone">
+                {{ form_row(registrationForm.phone)}}
+            </div>
+
+            <div class="form-research">
+                {{ form_row(registrationForm.fieldOfResearch)}}
+            </div>
+
+            <div class="form-partner">
+                {{ form_row(registrationForm.partners)}}
+            </div>
+
+            <div class="checkbox-studylevel">
+                {{ form_row(registrationForm.studylevel) }}
+            </div>
+
+            <div class="checkbox-website">
+                {{ form_row(registrationForm.webSite) }}
+            </div>
+
+            <div class="checkbox-imageFile">
+                {{ form_row(registrationForm.imageFile) }}
+            </div>
+
+            <div class="register-submit">
+                <button type="submit" class="btn btn-info" name="register">Inscrire</button>
+            </div>
+            {{ form_end(registrationForm) }}
+
+            <!--<div class="different_login">
+
+            </div>-->
+
+            <div class="form-note text-center">Vous êtes Membre ? <a href="{{ path('app_login') }}">Connexion</a></div>
+
         </div>
     </div>
-
 {% endblock %}

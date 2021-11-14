@@ -3,14 +3,19 @@
 }*/
 
 .title-article {
-  margin: 1em 1em 0.5em 24.5em;
+  margin: 1em 1em 0.5em 1em;
+  display: flex;
+}
+
+.title-article > .count {
+  margin-left: 10.8em;
 }
 
 .container-article {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .row-filter {
@@ -57,4 +62,12 @@
 .card-title {
   font-weight: bold;
   font-size: 1.5em;
+}
+
+.register {
+  margin-top: 4em;
+}
+
+.register-submit > button {
+  width: 10vw;
 }

@@ -10,13 +10,14 @@
      <meta name="generator" content="Hugo 0.88.1">
         <title>{% block title %}Welcome!{% endblock %}</title>
 
-        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/css/styles/membre.css') }}" rel="stylesheet" >
-      <link href="{{ asset('assets/css/styles/styleForm.css') }}" rel="stylesheet" >
 
 
+     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets/css/carousel.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets/css/styles/membre.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets/css/styles/styleForm.css') }}" rel="stylesheet">
+     <link href="{{ asset('assets/css/styles/styleDescrip.css') }}" rel="stylesheet">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,6 @@
         <link href="{{ asset('assets/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.css') }}" rel="stylesheet" >
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
 
         {% block stylesheets %}
             {#  {{ encore_entry_link_tags('app') }} #}
@@ -50,10 +50,6 @@
                 }
             }
         </style>
-
-
-
-
 
     </head>
     <body>
@@ -197,23 +193,26 @@
         {% block body %}
 
         {% endblock %}
-    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    {#  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>#}
 
-    {#
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/popper.min.js') }}"></script>
-<script src="{{ asset('assets/owlcarousel/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
-<script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
-<script src="{{ asset('assets/js/parallax.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
-<script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/js/isotope.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.dd.min.js') }}"></script>
-<script src="{{ asset('assets/js/slick.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery.elevatezoom.js') }}"></script>
-<script src="{{ asset('assets/js/scripts.js') }}"></script> #}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundleV4.js') }}"></script>
+    {#  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>{#
+
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/owlcarousel/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets/js/parallax.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assets/js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/isotope.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dd.min.js') }}"></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.elevatezoom.js') }}"></script>
+    <script src="{{ asset('assets/js/scripts.js') }}"></script> #}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function(){
@@ -221,19 +220,15 @@
             $('.js-partners-multiple').select2();
         });
     </script>
-
     <script>
         $(document).ready(function(){
             //alert("Super");
             $('.js-author-multiple').select2();
         });
-   </script>
-            {% block javascripts %}
-                {# {{ encore_entry_script_tags('app') }} #}
-            {% endblock %}
+    </script>
 
 
 
-        </main>
+
     </body>
 </html>
