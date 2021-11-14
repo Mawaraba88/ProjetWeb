@@ -328,27 +328,6 @@ class DocumenttypeController extends AbstractController
 
         return $this->redirectToRoute('account');
     }
-/*
-    /**
-     * @Route("/showDocumenttypes/{id}", name="show_documenttype")
-     */
-    /*public function showDocumenttype(?CategoryDonnees $category ): Response
-    {
 
-        if($category){
-
-            $documents = $category->getDocumenttypes()->getValues();
-        }
-        else{
-            return  $this->redirectToRoute('home');
-        }
-
-        //dd($document);
-        $categories = $this->repoCategory->findAll();
-        return $this->render('documenttype/index.html.twig', [
-            'documents' => $documents,
-            'categories' => $categories
-        ]);
-    }*/
 
 }
